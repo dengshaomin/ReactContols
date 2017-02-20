@@ -9,6 +9,7 @@ import {
     Image
 } from 'react-native';
 import DemoViewPager from './demo-viewpager'
+import DemoScrollView from './demo-scrollview'
 export default class ReactNative extends React.Component {
     constructor(props) {
         super(props);
@@ -18,7 +19,7 @@ export default class ReactNative extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <DemoViewPager/>
+                <DemoScrollView/>
             </View>
         )
             ;
