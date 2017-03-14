@@ -44,7 +44,7 @@ export default class DemoScrollView extends React.Component {
     render() {
         return (
             <View style={{flex: 1}}>
-                <ScrollView keyboardDismissMode={'on-drag'} >
+                <ScrollView keyboardDismissMode={'on-drag'}>
                     {
                         this._renderPage()
                     }
@@ -57,12 +57,14 @@ export default class DemoScrollView extends React.Component {
     _renderPage() {
         var views = [];
         for (var i = 0; i < this.state.datas.length; i++) {
-            views.push(<Image
-                key={i}
-                style={styles.page}
-                source={{uri: this.state.datas[i].url}}
-            />);
-
+            if (i == 3) {
+                views.push(<Text key={i}>234</Text>)
+            } else
+                views.push(<Image
+                    key={i}
+                    style={styles.page}
+                    source={{uri: this.state.datas[i].url}}
+                />);
         }
         return views;
     }
