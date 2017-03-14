@@ -6,9 +6,14 @@ import {
     PanResponder,
     View
 } from 'react-native';
+import x from 'react-native-refresher'
 var Dimensions = require('Dimensions');
 var ScreenWidth = Dimensions.get('window').width;
 var ScreenHeight = Dimensions.get('window').height;
+var HeaderHeight = 100;
+var MaxDistance = ScreenHeight * 2;
+var temp;
+import pullto from 'react-native-refreshable-listview'
 export default class MyTouch extends Component {
     constructor(props, context) {
         super(props, context);
@@ -18,6 +23,47 @@ export default class MyTouch extends Component {
             width: 300,
             height: 300,
             distant: 0,
+        }
+    }
+
+    _handleStartShouldSetPanResponder(e, gestureState) {
+        console.log(1);
+        return gestureState.numberActiveTouches === 2;
+    }
+
+    _handleMoveShouldSetPanResponder(e, gestureState) {
+        console.log(2);
+        return true;
+    }
+
+    _handlePanResponderGrant(e, gestureState) {
+        console.log(4);
+        if (gestureState.numberActiveTouches === 2) {
+            this.setState({bg: 'orange'});
+        }
+    }
+
+    _handlePanResponderEnd(e, gestureState) {
+        console.log(3);
+    }
+
+    _handlePanResponderMove(e, gestureState) {
+        if (gestureState.numberActiveTouches === 1) {
+            // this.setState({bg: 'orange'});
+            // var dx = Math.abs(e.nativeEvent.touches[0].pageX - e.nativeEvent.touches[1].pageX);
+            // var dy = Math.abs(e.nativeEvent.touches[0].pageY - e.nativeEvent.touches[1].pageY);
+            // var distant = Math.sqrt(dx * dx + dy * dy);
+            // if (distant > this.state.distant) {
+            //     console.log("bigger");
+            // } else {
+            //     console.log("smaller");
+            // }
+            var offset = gestureState.dy - temp;
+            temp = gestureState.dy;
+            var ds = gestureState.dy - gestureState.dy * gestureState.dy / MaxDistance;
+            console.log(this.state.distant + "=" + gestureState.dy + "=" + Math.log10(gestureState.dy));
+            // if (gestureState.dy > MaxDistance) ds = MaxDistance;
+            this.setState({distant: ds});
         }
     }
 
@@ -32,53 +78,18 @@ export default class MyTouch extends Component {
         })
     }
 
-    _handleStartShouldSetPanResponder(e, gestureState) {
-        return gestureState.numberActiveTouches === 2;
-    }
-
-    _handleMoveShouldSetPanResponder(e, gestureState) {
-        return true;
-    }
-
-    _handlePanResponderGrant(e, gestureState) {
-        if (gestureState.numberActiveTouches === 2) {
-            this.setState({bg: 'orange'});
-        }
-    }
-
-    _handlePanResponderEnd(e, gestureState) {
-        this.setState({bg: 'red'});
-        console.log(gestureState);
-    }
-
-    _handlePanResponderMove(e, gestureState) {
-        if (gestureState.numberActiveTouches === 1) {
-            // this.setState({bg: 'orange'});
-            // var dx = Math.abs(e.nativeEvent.touches[0].pageX - e.nativeEvent.touches[1].pageX);
-            // var dy = Math.abs(e.nativeEvent.touches[0].pageY - e.nativeEvent.touches[1].pageY);
-            // var distant = Math.sqrt(dx * dx + dy * dy);
-            // if (distant > this.state.distant) {
-            //     console.log("bigger");
-            // } else {
-            //     console.log("smaller");
-            // }
-            console.log("=" + gestureState.dy);
-            this.setState({distant: gestureState.dy});
-        }
-    }
 
     render() {
         return (
-            <View>
-                <View
-                    {...this.gestureHandlers.panHandlers}
-                    style={{
-                        height: ScreenHeight,
-                        width: ScreenWidth,
-                        backgroundColor: this.state.bg,
-                        marginTop: this.state.distant
-                    }}>
-                </View>
+            <View style={styles.container}>
+                <View style={{
+                    width: ScreenWidth,
+                    height: HeaderHeight,
+                    backgroundColor: 'white',
+                    marginTop: this.state.distant - HeaderHeight
+                }}/>
+                <View {...this.gestureHandlers.panHandlers}
+                      style={{width: ScreenWidth, height: ScreenHeight, backgroundColor: 'red'}}/>
             </View>
         );
     }

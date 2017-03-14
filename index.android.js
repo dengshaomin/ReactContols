@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import DemoViewPager from './demo-viewpager'
 import DemoScrollView from './demo-scrollview'
-import MyTouch from './touch'
+import MyTouch from './demo-listview'
 export default class ReactNative extends React.Component {
     constructor(props) {
         super(props);

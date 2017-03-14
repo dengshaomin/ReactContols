@@ -1,6 +1,6 @@
 'use strict'
 
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
     AppRegistry,
     StyleSheet,
@@ -16,54 +16,54 @@ import {
 
 let self;
 /**ref的引用*/
-const PULL_REFRESH_LAYOUT="pullLayout";
+const PULL_REFRESH_LAYOUT = "pullLayout";
 /**屏幕宽度*/
 const deviceWidth = Dimensions.get('window').width;
 /**下拉阻力系数*/
-const factor=1.8;
+const factor = 1.8;
 /**最大下拉高度*/
-const MAX_PULL_LENGTH=170;
+const MAX_PULL_LENGTH = 170;
 /**Loading的高度*/
-const REFRESH_PULL_LENGTH=70;
+const REFRESH_PULL_LENGTH = 70;
 /**动画时长*/
-const BACK_TIME=400;
+const BACK_TIME = 400;
 /**存储最后刷新时间的Key*/
-const REFRESH_LAST_TIME_KEY="refresh_last";
+const REFRESH_LAST_TIME_KEY = "refresh_last";
 
-const RefreshStatus={
-    Refresh_NONE:0,
-    Refresh_Drag_Down:1,
-    Refresh_Loading:2,
-    Refresh_Reset:3,
+const RefreshStatus = {
+    Refresh_NONE: 0,
+    Refresh_Drag_Down: 1,
+    Refresh_Loading: 2,
+    Refresh_Reset: 3,
 };
 
-const ShowLoadingStatus={
-    SHOW_DOWN:0,
-    SHOW_UP:1,
-    SHOW_LOADING:2,
+const ShowLoadingStatus = {
+    SHOW_DOWN: 0,
+    SHOW_UP: 1,
+    SHOW_LOADING: 2,
 };
 
-class PullToRefreshLayout extends Component{
+class PullToRefreshLayout extends Component {
 
     //noinspection JSAnnotator
-    _panResponder:{}
+    _panResponder: {}
     // 构造
     constructor(props) {
         super(props);
         // 初始状态
         this.state = {
-            currentDistance:0,
+            currentDistance: 0,
 
-            pullRefreshStatus:RefreshStatus.Refresh_NONE,
+            pullRefreshStatus: RefreshStatus.Refresh_NONE,
 
-            showPullStatus:ShowLoadingStatus.SHOW_DOWN,
+            showPullStatus: ShowLoadingStatus.SHOW_DOWN,
 
-            showPullLastTime:'NONE',
+            showPullLastTime: 'NONE',
         };
-        this.resetHeader=this.resetHeader.bind(this);
-        this.refreshStateHeader=this.refreshStateHeader.bind(this);
-        this.getTime=this.getTime.bind(this);
-        this.addZeroAtFront=this.addZeroAtFront.bind(this);
+        this.resetHeader = this.resetHeader.bind(this);
+        this.refreshStateHeader = this.refreshStateHeader.bind(this);
+        this.getTime = this.getTime.bind(this);
+        this.addZeroAtFront = this.addZeroAtFront.bind(this);
     }
 
     //要求成为响应者
@@ -72,13 +72,15 @@ class PullToRefreshLayout extends Component{
         let {e, gestureState} = parameters;
         return true;
     }
+
     //noinspection JSAnnotator
     _handleMoveShouldSetPanResponder(parameters): boolean {
         let {e, gestureState} = parameters;
         return true;
     }
+
     //touch down 开始手势操作。给用户一些视觉反馈，让他们知道发生了什么事情！
-    _handlePanResponderGrant(parameters){
+    _handlePanResponderGrant(parameters) {
         let {e, gestureState} = parameters;
 
     }
@@ -86,58 +88,58 @@ class PullToRefreshLayout extends Component{
     //touch move 响应滑动事件
     _handlePanResponderMove(parameters) {
         let {e, gestureState} = parameters;
-        if(self.state.currentDistance>REFRESH_PULL_LENGTH){
-            if(self.state.showPullStatus===ShowLoadingStatus.SHOW_DOWN){
+        if (self.state.currentDistance > REFRESH_PULL_LENGTH) {
+            if (self.state.showPullStatus === ShowLoadingStatus.SHOW_DOWN) {
                 self.setState({
-                    showPullStatus:ShowLoadingStatus.SHOW_UP,
+                    showPullStatus: ShowLoadingStatus.SHOW_UP,
                 });
             }
         }
-        else{
-            if (self.state.showPullStatus===ShowLoadingStatus.SHOW_UP){
+        else {
+            if (self.state.showPullStatus === ShowLoadingStatus.SHOW_UP) {
                 self.setState({
-                    showPullStatus:ShowLoadingStatus.SHOW_DOWN,
+                    showPullStatus: ShowLoadingStatus.SHOW_DOWN,
                 });
             }
         }
-        if (self.state.pullRefreshStatus===RefreshStatus.Refresh_Loading){
+        if (self.state.pullRefreshStatus === RefreshStatus.Refresh_Loading) {
             self.setState({
-                currentDistance:REFRESH_PULL_LENGTH+gestureState.dy/factor,
+                currentDistance: REFRESH_PULL_LENGTH + gestureState.dy / factor,
                 // refreshStateHeader:2,
             });
             self.refs[PULL_REFRESH_LAYOUT].setNativeProps({
-                style:{
-                    marginTop:self.state.currentDistance,
+                style: {
+                    marginTop: self.state.currentDistance,
                 }
             });
             return;
         }
-        if (gestureState.dy>0&&self.state.currentDistance<MAX_PULL_LENGTH){
+        if (gestureState.dy > 0 && self.state.currentDistance < MAX_PULL_LENGTH) {
             self.setState({
-                currentDistance:gestureState.dy/factor,
-                pullRefreshStatus:RefreshStatus.Refresh_Drag_Down,
+                currentDistance: gestureState.dy / factor,
+                pullRefreshStatus: RefreshStatus.Refresh_Drag_Down,
             });
             self.refs[PULL_REFRESH_LAYOUT].setNativeProps({
-                style:{
-                    marginTop:self.state.currentDistance,
+                style: {
+                    marginTop: self.state.currentDistance,
                 }
             });
         }
-        else if(gestureState.dy>0&&self.state.currentDistance>MAX_PULL_LENGTH){//则不再往下移动
+        else if (gestureState.dy > 0 && self.state.currentDistance > MAX_PULL_LENGTH) {//则不再往下移动
             self.setState({
-                currentDistance:MAX_PULL_LENGTH,
-                pullRefreshStatus:RefreshStatus.Refresh_Drag_Down,
+                currentDistance: MAX_PULL_LENGTH,
+                pullRefreshStatus: RefreshStatus.Refresh_Drag_Down,
             });
             self.refs[PULL_REFRESH_LAYOUT].setNativeProps({
-                style:{
-                    marginTop:self.state.currentDistance,
+                style: {
+                    marginTop: self.state.currentDistance,
                 }
             });
         }
     }
 
 
-    resetHeader(){
+    resetHeader() {
         LayoutAnimation.configureNext({
             duration: BACK_TIME,
             update: {
@@ -145,24 +147,24 @@ class PullToRefreshLayout extends Component{
             }
         });
         self.refs[PULL_REFRESH_LAYOUT].setNativeProps({
-            style:{
-                marginTop:0,
+            style: {
+                marginTop: 0,
             }
         });
         self.setState({
-            currentDistance:0,
-            pullRefreshStatus:RefreshStatus.Refresh_Reset,
-            showPullStatus:ShowLoadingStatus.SHOW_DOWN,
+            currentDistance: 0,
+            pullRefreshStatus: RefreshStatus.Refresh_Reset,
+            showPullStatus: ShowLoadingStatus.SHOW_DOWN,
         });
     }
 
-    refreshStateHeader(){
+    refreshStateHeader() {
         self.setState({
-            pullRefreshStatus:RefreshStatus.Refresh_Loading,
-            currentDistance:REFRESH_PULL_LENGTH,
-            showPullStatus:ShowLoadingStatus.SHOW_LOADING,
-        },()=>{
-            if(self.props.onRefresh){
+            pullRefreshStatus: RefreshStatus.Refresh_Loading,
+            currentDistance: REFRESH_PULL_LENGTH,
+            showPullStatus: ShowLoadingStatus.SHOW_LOADING,
+        }, () => {
+            if (self.props.onRefresh) {
                 self.props.onRefresh();
             }
         });
@@ -173,41 +175,41 @@ class PullToRefreshLayout extends Component{
             }
         });
         self.refs[PULL_REFRESH_LAYOUT].setNativeProps({
-            style:{
-                marginTop:REFRESH_PULL_LENGTH,
+            style: {
+                marginTop: REFRESH_PULL_LENGTH,
             }
         });
     }
 
 
-    addZeroAtFront(count){
-        if (count<10){
-            count="0"+count;
+    addZeroAtFront(count) {
+        if (count < 10) {
+            count = "0" + count;
         }
         return count;
     }
 
 
-    getTime(){
-        let date=new Date();
+    getTime() {
+        let date = new Date();
 
-        let mMonth=this.addZeroAtFront(date.getMonth()+1);
+        let mMonth = this.addZeroAtFront(date.getMonth() + 1);
 
-        let mDate=this.addZeroAtFront(date.getDate());
+        let mDate = this.addZeroAtFront(date.getDate());
 
-        let mHours=this.addZeroAtFront(date.getHours());
+        let mHours = this.addZeroAtFront(date.getHours());
 
-        let mMinutes=this.addZeroAtFront(date.getMinutes());
+        let mMinutes = this.addZeroAtFront(date.getMinutes());
 
-        return mMonth+"-"+mDate+"  "+mHours+":"+mMinutes;
+        return mMonth + "-" + mDate + "  " + mHours + ":" + mMinutes;
     }
 
-    stopRefresh(){
-        let savedDate=this.getTime();
+    stopRefresh() {
+        let savedDate = this.getTime();
         self.setState({
-            showPullLastTime:savedDate,
+            showPullLastTime: savedDate,
         });
-        AsyncStorage.setItem(REFRESH_LAST_TIME_KEY,savedDate,()=>{
+        AsyncStorage.setItem(REFRESH_LAST_TIME_KEY, savedDate, () => {
 
         });
         this.resetHeader();
@@ -215,27 +217,27 @@ class PullToRefreshLayout extends Component{
 
     _handlePanResponderEnd(parameters) {
         let {e, gestureState} = parameters;
-        if (self.state.currentDistance>=REFRESH_PULL_LENGTH){
+        if (self.state.currentDistance >= REFRESH_PULL_LENGTH) {
             self.refreshStateHeader();
         }
-        else{
+        else {
             self.resetHeader();
         }
     }
 
     componentDidMount() {
-        AsyncStorage.getItem(REFRESH_LAST_TIME_KEY,(err,result)=>{
-            if (result){
+        AsyncStorage.getItem(REFRESH_LAST_TIME_KEY, (err, result) => {
+            if (result) {
                 self.setState({
-                    showPullLastTime:result,
+                    showPullLastTime: result,
                 });
             }
         });
     }
 
     componentWillMount() {
-        self=this;
-        this._panResponder=PanResponder.create({
+        self = this;
+        this._panResponder = PanResponder.create({
             onStartShouldSetPanResponder: this._handleStartShouldSetPanResponder,
             onMoveShouldSetPanResponder: this._handleMoveShouldSetPanResponder,
             onPanResponderGrant: this._handlePanResponderGrant,
@@ -245,53 +247,68 @@ class PullToRefreshLayout extends Component{
         });
     }
 
-    shouldComponentUpdate(nextProps,nextState) {
-        if (nextState.showPullStatus!==self.state.showPullStatus){
+    shouldComponentUpdate(nextProps, nextState) {
+        if (nextState.showPullStatus !== self.state.showPullStatus) {
             return true;
         }
-        if (self.state.showPullLastTime!==nextState.showPullLastTime){
+        if (self.state.showPullLastTime !== nextState.showPullLastTime) {
             return true;
         }
         return false;
     }
 
-    render(){
+    render() {
         let pullText;
         let indicatorView;
-        if (this.state.showPullStatus===ShowLoadingStatus.SHOW_DOWN){
-            indicatorView=<Image
-                style={{height:30,width:30,marginRight:10}}
+        if (this.state.showPullStatus === ShowLoadingStatus.SHOW_DOWN) {
+            indicatorView = <Image
+                style={{height: 30, width: 30, marginRight: 10}}
                 source={require('./img/ic_t_xin.png')}
                 resizeMode={Image.resizeMode.contain}
             />;
-            pullText="下拉刷新";
+            pullText = "下拉刷新";
         }
-        else if (this.state.showPullStatus===ShowLoadingStatus.SHOW_UP){
-            indicatorView=<Image
-                style={{height:30,width:30,marginRight:10,transform:[{rotate:"180deg"}]}}
+        else if (this.state.showPullStatus === ShowLoadingStatus.SHOW_UP) {
+            indicatorView = <Image
+                style={{height: 30, width: 30, marginRight: 10, transform: [{rotate: "180deg"}]}}
                 source={require('./img/ic_t_xin.png')}
                 resizeMode={Image.resizeMode.contain}
             />;
-            pullText="释放刷新";
+            pullText = "释放刷新";
         }
-        else if(this.state.showPullStatus===ShowLoadingStatus.SHOW_LOADING){
-            indicatorView=<ProgressBarAndroid style={{marginRight:10,width:30,height:30}} />
-            pullText="刷新中......";
+        else if (this.state.showPullStatus === ShowLoadingStatus.SHOW_LOADING) {
+            indicatorView = <ProgressBarAndroid style={{marginRight: 10, width: 30, height: 30}}/>
+            pullText = "刷新中......";
         }
         return (
             <View style={styles.base}>
-                <View style={{backgroundColor:'white',position:'absolute',}}>
-                    <View style={{justifyContent:'center',alignItems:'center',width:deviceWidth,height:REFRESH_PULL_LENGTH,flexDirection:'row'}}>
+                <View style={{backgroundColor: 'white', position: 'absolute',}}>
+                    <View style={{
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        width: deviceWidth,
+                        height: REFRESH_PULL_LENGTH,
+                        flexDirection: 'row'
+                    }}>
                         {indicatorView}
-                        <View style={{height:REFRESH_PULL_LENGTH,justifyContent:'center',alignItems:'center',marginLeft:10}}>
-                            <Text style={{fontSize:12,color:'#666',marginBottom:1}}>{pullText}</Text>
-                            <Text style={{fontSize:12,color:'#666',marginTop:1}}>最后更新:   {this.state.showPullLastTime}</Text>
+                        <View style={{
+                            height: REFRESH_PULL_LENGTH,
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            marginLeft: 10
+                        }}>
+                            <Text style={{fontSize: 12, color: '#666', marginBottom: 1}}>{pullText}</Text>
+                            <Text style={{
+                                fontSize: 12,
+                                color: '#666',
+                                marginTop: 1
+                            }}>最后更新: {this.state.showPullLastTime}</Text>
                         </View>
                     </View>
                 </View>
                 <View
                     ref={PULL_REFRESH_LAYOUT}
-                    style={{flex:1,position:'absolute'}}  {...this._panResponder.panHandlers} >
+                    style={{flex: 1, position: 'absolute'}}  {...this._panResponder.panHandlers} >
                     {this.props.children}
                 </View>
             </View>
@@ -304,6 +321,6 @@ export default PullToRefreshLayout;
 var styles = StyleSheet.create({
     base: {
         flex: 1,
-        position :'relative'
+        position: 'relative'
     },
 });
