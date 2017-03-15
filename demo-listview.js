@@ -4,17 +4,17 @@ import {
     StyleSheet,
     Text,
     PanResponder,
-    View
+    View,
+    Animated
 } from 'react-native';
-import x from 'react-native-refresher'
 var Dimensions = require('Dimensions');
 var ScreenWidth = Dimensions.get('window').width;
 var ScreenHeight = Dimensions.get('window').height;
 var HeaderHeight = 100;
-var MaxDistance = ScreenHeight * 2;
+var MaxDistance = HeaderHeight;
 var temp;
-import pullto from 'react-native-refreshable-listview'
 export default class MyTouch extends Component {
+    //noinspection JSAnnotator
     constructor(props, context) {
         super(props, context);
         this.state = {
@@ -23,12 +23,12 @@ export default class MyTouch extends Component {
             width: 300,
             height: 300,
             distant: 0,
+            trans: new Animated.ValueXY(),
         }
     }
 
     _handleStartShouldSetPanResponder(e, gestureState) {
-        console.log(1);
-        return gestureState.numberActiveTouches === 2;
+        return true;
     }
 
     _handleMoveShouldSetPanResponder(e, gestureState) {
@@ -45,26 +45,32 @@ export default class MyTouch extends Component {
 
     _handlePanResponderEnd(e, gestureState) {
         console.log(3);
+        this.setState({trans: {x: 0, y: 0}});
     }
 
     _handlePanResponderMove(e, gestureState) {
-        if (gestureState.numberActiveTouches === 1) {
-            // this.setState({bg: 'orange'});
-            // var dx = Math.abs(e.nativeEvent.touches[0].pageX - e.nativeEvent.touches[1].pageX);
-            // var dy = Math.abs(e.nativeEvent.touches[0].pageY - e.nativeEvent.touches[1].pageY);
-            // var distant = Math.sqrt(dx * dx + dy * dy);
-            // if (distant > this.state.distant) {
-            //     console.log("bigger");
-            // } else {
-            //     console.log("smaller");
-            // }
-            var offset = gestureState.dy - temp;
-            temp = gestureState.dy;
-            var ds = gestureState.dy - gestureState.dy * gestureState.dy / MaxDistance;
-            console.log(this.state.distant + "=" + gestureState.dy + "=" + Math.log10(gestureState.dy));
-            // if (gestureState.dy > MaxDistance) ds = MaxDistance;
-            this.setState({distant: ds});
+        // this.setState({bg: 'orange'});
+        // var dx = Math.abs(e.nativeEvent.touches[0].pageX - e.nativeEvent.touches[1].pageX);
+        // var dy = Math.abs(e.nativeEvent.touches[0].pageY - e.nativeEvent.touches[1].pageY);
+        // var distant = Math.sqrt(dx * dx + dy * dy);
+        // if (distant > this.state.distant) {
+        //     console.log("bigger");
+        // } else {
+        //     console.log("smaller");
+        // }
+        var offset = gestureState.dy - temp;
+        temp = gestureState.dy;
+        var ds = gestureState.dy - gestureState.dy * gestureState.dy / (MaxDistance * 5);
+        if (this.state.trans.y >= MaxDistance) {
+            ds = MaxDistance;
         }
+        console.log(this.state.distant + "=" + gestureState.dy + "=" + Math.log10(gestureState.dy));
+        // if (gestureState.dy > MaxDistance) ds = MaxDistance;
+        this.setState({trans: {x: 0, y: ds}});
+        temp = ds;
+        // Animated.event(
+        //     [null, {dx: this.state.trans.x, dy: this.state.trans.y}] // 绑定动画值
+        // )
     }
 
     componentWillMount() {
@@ -78,27 +84,37 @@ export default class MyTouch extends Component {
         })
     }
 
-
     render() {
         return (
-            <View style={styles.container}>
+            <Animated.View {...this.gestureHandlers.panHandlers} style={{
+                flex: 1, transform: [
+                    {translateX: this.state.trans.x, translateY: this.state.trans.y},
+                ]
+            }}>
                 <View style={{
                     width: ScreenWidth,
                     height: HeaderHeight,
-                    backgroundColor: 'white',
-                    marginTop: this.state.distant - HeaderHeight
-                }}/>
-                <View {...this.gestureHandlers.panHandlers}
-                      style={{width: ScreenWidth, height: ScreenHeight, backgroundColor: 'red'}}/>
-            </View>
+                    alignItems: 'center',
+                    backgroundColor: 'red',
+                    marginTop: -HeaderHeight,
+                }}>
+                    <Text style={{
+                        width: ScreenWidth,
+                        height: HeaderHeight,
+                        color: '#99357a',
+                        fontSize: 12,
+                        backgroundColor: "red"
+                    }}>
+                    </Text>
+                </View>
+                <View style={{flex: 1, backgroundColor: "yellow"}}{...this.gestureHandlers.panHandlers}/>
+            </Animated.View>
         );
     }
 }
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
         backgroundColor: '#F5FCFF',
     },
     rectBig: {
