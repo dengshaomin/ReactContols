@@ -11,6 +11,8 @@ import {
 import DemoViewPager from './demo-viewpager'
 import DemoScrollView from './demo-scrollview'
 import MyTouch from './demo-listview'
+import AnimatedDemo from './demo-animate'
+import RefreshableListView from 'react-native-refreshable-listview'
 export default class ReactNative extends React.Component {
     constructor(props) {
         super(props);
@@ -20,7 +22,7 @@ export default class ReactNative extends React.Component {
     render() {
         return (
             <View style={styles.container}>
-                <MyTouch/>
+                <RefreshableListView/>
             </View>
         )
             ;

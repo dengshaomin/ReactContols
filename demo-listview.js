@@ -5,14 +5,38 @@ import {
     Text,
     PanResponder,
     View,
-    Animated
+    Animated,
+    LayoutAnimation, TouchableHighlight
 } from 'react-native';
 var Dimensions = require('Dimensions');
 var ScreenWidth = Dimensions.get('window').width;
 var ScreenHeight = Dimensions.get('window').height;
 var HeaderHeight = 100;
-var MaxDistance = HeaderHeight;
-var temp;
+var temp = 0;
+const customAnim = {
+    customSpring: {
+        duration: 1000,
+        create: {
+            type: LayoutAnimation.Types.linear,
+            property: LayoutAnimation.Properties.scaleXY,
+            springDamping: 0.6
+        },
+        update: {
+            type: LayoutAnimation.Types.spring,
+            springDamping: 1
+        }
+    },
+    customLinear: {
+        duration: 200,
+        create: {
+            type: LayoutAnimation.Types.linear,
+            property: LayoutAnimation.Properties.opacity,
+        },
+        update: {
+            type: LayoutAnimation.Types.easeInEaseOut
+        }
+    }
+};
 export default class MyTouch extends Component {
     //noinspection JSAnnotator
     constructor(props, context) {
@@ -23,8 +47,12 @@ export default class MyTouch extends Component {
             width: 300,
             height: 300,
             distant: 0,
-            trans: new Animated.ValueXY(),
+            trans: new Animated.ValueXY(0),
+            pan: new Animated.ValueXY()
         }
+    }
+
+    componentWillUpdate() {
     }
 
     _handleStartShouldSetPanResponder(e, gestureState) {
@@ -45,35 +73,26 @@ export default class MyTouch extends Component {
 
     _handlePanResponderEnd(e, gestureState) {
         console.log(3);
-        this.setState({trans: {x: 0, y: 0}});
+        temp = 0;
+        // LayoutAnimation.spring(customAnim.customLinear);
+        // this.setState({trans: {x: 0, y: 0}, distant: 0});
+        Animated.spring(this.state.pan, {duration: 2000, toValue: {x: 0, y: 0}}
+        ).start();
     }
 
     _handlePanResponderMove(e, gestureState) {
-        // this.setState({bg: 'orange'});
-        // var dx = Math.abs(e.nativeEvent.touches[0].pageX - e.nativeEvent.touches[1].pageX);
-        // var dy = Math.abs(e.nativeEvent.touches[0].pageY - e.nativeEvent.touches[1].pageY);
-        // var distant = Math.sqrt(dx * dx + dy * dy);
-        // if (distant > this.state.distant) {
-        //     console.log("bigger");
-        // } else {
-        //     console.log("smaller");
-        // }
-        var offset = gestureState.dy - temp;
-        temp = gestureState.dy;
-        var ds = gestureState.dy - gestureState.dy * gestureState.dy / (MaxDistance * 5);
-        if (this.state.trans.y >= MaxDistance) {
-            ds = MaxDistance;
+        if (gestureState.dy - temp < 5) {
+            return;
         }
-        console.log(this.state.distant + "=" + gestureState.dy + "=" + Math.log10(gestureState.dy));
-        // if (gestureState.dy > MaxDistance) ds = MaxDistance;
-        this.setState({trans: {x: 0, y: ds}});
-        temp = ds;
+        temp = (gestureState.dy - temp) * 0.5;
+        this.setState({trans: {x: 0, y: temp}, distant: temp});
         // Animated.event(
         //     [null, {dx: this.state.trans.x, dy: this.state.trans.y}] // 绑定动画值
         // )
     }
 
     componentWillMount() {
+        // LayoutAnimation.spring(customAnim);
         this.gestureHandlers = PanResponder.create({
             onStartShouldSetPanResponder: this._handleStartShouldSetPanResponder.bind(this),
             onMoveShouldSetPanResponder: this._handleMoveShouldSetPanResponder.bind(this),
@@ -87,27 +106,38 @@ export default class MyTouch extends Component {
     render() {
         return (
             <Animated.View {...this.gestureHandlers.panHandlers} style={{
-                flex: 1, transform: [
-                    {translateX: this.state.trans.x, translateY: this.state.trans.y},
-                ]
+                flex: 1,
+                marginTop: this.state.distant - HeaderHeight,
+                transform: this.state.pan.getTranslateTransform()
             }}>
                 <View style={{
                     width: ScreenWidth,
                     height: HeaderHeight,
-                    alignItems: 'center',
                     backgroundColor: 'red',
-                    marginTop: -HeaderHeight,
+
                 }}>
                     <Text style={{
-                        width: ScreenWidth,
-                        height: HeaderHeight,
+                        flex: 1,
+                        backgroundColor: "white",
+                        textAlign: 'center',
+                        justifyContent: 'center',
+                        alignItems: 'center',
                         color: '#99357a',
-                        fontSize: 12,
-                        backgroundColor: "red"
+                        fontSize: 15,
                     }}>
+                        {this.state.distant}
                     </Text>
                 </View>
-                <View style={{flex: 1, backgroundColor: "yellow"}}{...this.gestureHandlers.panHandlers}/>
+                <View style={{flex: 1, backgroundColor: "yellow"}}/>
+                <TouchableHighlight onPress={() => {
+                    Animated.spring(this.state.pan, {
+                        duration: 500,
+                        toValue: {x: 0, y: 0}  // return to start
+                    }).start();
+                }}><Animated.View
+                    style={[styles.square, {transform: this.state.pan.getTranslateTransform()}]}/>
+                </TouchableHighlight>
+
             </Animated.View>
         );
     }
@@ -115,10 +145,16 @@ export default class MyTouch extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        flexDirection: 'column',
         backgroundColor: '#F5FCFF',
     },
     rectBig: {
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    square: {
+        width: ScreenWidth,
+        height: 100,
+        backgroundColor: 'blue'
     }
 });
