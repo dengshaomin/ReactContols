@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {
     AppRegistry,
     StyleSheet,
@@ -6,39 +6,25 @@ import {
     PanResponder,
     View,
     Animated,
-    LayoutAnimation, TouchableHighlight
+    LayoutAnimation, TouchableHighlight, ListView, RefreshControl,
+    Image,
 } from 'react-native';
 var Dimensions = require('Dimensions');
 var ScreenWidth = Dimensions.get('window').width;
 var ScreenHeight = Dimensions.get('window').height;
 var HeaderHeight = 100;
 var temp = 0;
-const customAnim = {
-    customSpring: {
-        duration: 1000,
-        create: {
-            type: LayoutAnimation.Types.linear,
-            property: LayoutAnimation.Properties.scaleXY,
-            springDamping: 0.6
-        },
-        update: {
-            type: LayoutAnimation.Types.spring,
-            springDamping: 1
-        }
-    },
-    customLinear: {
-        duration: 200,
-        create: {
-            type: LayoutAnimation.Types.linear,
-            property: LayoutAnimation.Properties.opacity,
-        },
-        update: {
-            type: LayoutAnimation.Types.easeInEaseOut
-        }
-    }
-};
-export default class MyTouch extends Component {
-    //noinspection JSAnnotator
+var pageNum = 1;
+//每页显示数据的条数
+const pageSize = 10;
+//页面总数据数
+var pageCount = 0;
+//页面List总数据
+var totalList = new Array();
+import LoadingMore from './loading_more.gif'
+var scrollEnabled = false;
+var test = 1;
+export default class MyTouch extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
@@ -47,8 +33,14 @@ export default class MyTouch extends Component {
             width: 300,
             height: 300,
             distant: 0,
-            trans: new Animated.ValueXY(0),
-            pan: new Animated.ValueXY()
+            trans: new Animated.ValueXY({x: 0, y: -HeaderHeight}),
+            dataSource: new ListView.DataSource({
+                rowHasChanged: (r1, r2) => r1 !== r2,
+            }),
+            loaded: false,//加载更多是否完成
+            refreshing: false, //刷新
+            foot: 0,// 控制foot， 0：隐藏foot  1：已加载完成   2 ：显示加载中
+            error: false,
         }
     }
 
@@ -56,6 +48,7 @@ export default class MyTouch extends Component {
     }
 
     _handleStartShouldSetPanResponder(e, gestureState) {
+        console.log('aaaaaa');
         return true;
     }
 
@@ -76,23 +69,36 @@ export default class MyTouch extends Component {
         temp = 0;
         // LayoutAnimation.spring(customAnim.customLinear);
         // this.setState({trans: {x: 0, y: 0}, distant: 0});
-        Animated.spring(this.state.pan, {duration: 2000, toValue: {x: 0, y: 0}}
-        ).start();
+        var move;
+        // if (this.state.distant > HeaderHeight) {
+        //     this.timer = setTimeout(() => {
+        //             this.setState({distant: 0});
+        //         }
+        //         ,
+        //         2000
+        //     );
+        //     this.setState({distant: HeaderHeight});
+        // } else {
+        //     move = -HeaderHeight;
+        //     this.setState({distant: move});
+        // }
+
     }
 
     _handlePanResponderMove(e, gestureState) {
-        if (gestureState.dy - temp < 5) {
-            return;
-        }
+        console.log('move');
+        if (gestureState.dy > 0 && this.state.distant)
+            if (gestureState.dy - temp < 5) {
+                return;
+            }
         temp = (gestureState.dy - temp) * 0.5;
-        this.setState({trans: {x: 0, y: temp}, distant: temp});
-        // Animated.event(
-        //     [null, {dx: this.state.trans.x, dy: this.state.trans.y}] // 绑定动画值
-        // )
+        if (gestureState.dy >= 0) {
+            this.state.trans.setValue({x: 0, y: temp});
+        }
+        // this.setState({distant: temp});
     }
 
     componentWillMount() {
-        // LayoutAnimation.spring(customAnim);
         this.gestureHandlers = PanResponder.create({
             onStartShouldSetPanResponder: this._handleStartShouldSetPanResponder.bind(this),
             onMoveShouldSetPanResponder: this._handleMoveShouldSetPanResponder.bind(this),
@@ -101,45 +107,158 @@ export default class MyTouch extends Component {
             onPanResponderRelease: this._handlePanResponderEnd.bind(this),
             onPanResponderTerminate: this._handlePanResponderEnd.bind(this),
         })
+        pageNum = 1;
+        this.timer = setTimeout(() => {
+                this._fetchListData()
+            }
+            ,
+            30
+        );
+    }
+
+    componentWillUnMount() {
+        this.timer && clearTimeout(this.timer);
+        this.state.trans.removeAllListeners();
+    }
+
+    handleScroll(e) {
+        // var scrollY = e.nativeEvent.contentInset.top + e.nativeEvent.contentOffset.y
+        //
+        // if (this.isTouching || (!this.isTouching && !this.props.ignoreInertialScroll)) {
+        //     if (scrollY < -this.props.minPulldownDistance) {
+        //         if (!this.props.isRefreshing) {
+        //             if (this.props.onRefresh) {
+        //                 this.props.onRefresh()
+        //             }
+        //         }
+        //     }
+        // }
+        console.log('');
     }
 
     render() {
         return (
-            <Animated.View {...this.gestureHandlers.panHandlers} style={{
-                flex: 1,
-                marginTop: this.state.distant - HeaderHeight,
-                transform: this.state.pan.getTranslateTransform()
-            }}>
-                <View style={{
-                    width: ScreenWidth,
-                    height: HeaderHeight,
-                    backgroundColor: 'red',
-
-                }}>
-                    <Text style={{
-                        flex: 1,
-                        backgroundColor: "white",
-                        textAlign: 'center',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        color: '#99357a',
-                        fontSize: 15,
-                    }}>
-                        {this.state.distant}
-                    </Text>
-                </View>
-                <View style={{flex: 1, backgroundColor: "yellow"}}/>
-                <TouchableHighlight onPress={() => {
-                    Animated.spring(this.state.pan, {
-                        duration: 500,
-                        toValue: {x: 0, y: 0}  // return to start
-                    }).start();
-                }}><Animated.View
-                    style={[styles.square, {transform: this.state.pan.getTranslateTransform()}]}/>
-                </TouchableHighlight>
-
+            <Animated.View
+                style={[styles.container, this.state.trans.getLayout(), {backgroundColor: 'blue'}]}>
+                <ListView
+                    {...this.gestureHandlers.panHandlers}
+                    ref="listView"
+                    enableEmptySections={true}
+                    dataSource={this.state.dataSource}
+                    renderRow={this._renderRow.bind(this)}
+                    renderFooter={this._renderFooter.bind(this)}
+                    renderHeader={this._renderHeader.bind(this)}
+                    onEndReached={this._endReached.bind(this)}
+                    onEndReachedThreshold={100}
+                />
             </Animated.View>
-        );
+        )
+
+    }
+
+    _renderRow(rowData) {
+        return (
+            <View style={{flex: 1}}>
+                <Image source={{uri: rowData.url}}
+                       style={{width: ScreenWidth, height: ScreenHeight / 2, marginTop: 5}}
+                />
+            </View>
+        )
+    }
+
+    _endReached() {
+        if (this.state.foot != 0) {
+            return;
+        }
+        this.setState({
+            foot: 2,
+        });
+        this.timer = setTimeout(
+            () => {
+                pageNum++;
+                this._fetchListData();
+            }, 2000);
+    }
+
+    onRefresh() {
+        this.setState({refreshing: true,});
+        this._fetchListData();
+    }
+
+    _renderFooter() {
+        if (this.state.foot === 1) {//加载完毕
+            return (
+                <View style={{height: 40, alignItems: 'center', justifyContent: 'flex-start',}}>
+                    <Text style={{color: '#999999', fontSize: 12, marginTop: 10}}>
+                        {this.state.moreText}
+                    </Text>
+                </View>);
+        } else if (this.state.foot === 2) {//加载中
+            return (
+                <View style={{width: ScreenWidth, height: 80, alignItems: 'center', justifyContent: 'center',}}>
+                    <Image source={LoadingMore} style={{flex: 1}}/>
+                </View>);
+        }
+    }
+
+    _renderHeader() {
+        return (
+            <Text style={{
+                width: ScreenWidth,
+                height: HeaderHeight,
+                alignItems: 'center'
+            }}> {this.state.distant}</Text>)
+    }
+
+    _fetchListData() {
+        var mythis = this;
+        if (pageNum > 1) {
+            this.setState({loaded: true});
+        }
+        console.log(this.state.refreshing + "==")
+        fetch('http://gank.io/api/search/query/listview/category/福利/count/10/page/' + pageNum).then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                mythis.setState({error: true, loaded: true});
+            }
+        }).then(json => {
+            console.log(mythis.state.refreshing + "++")
+            if (mythis.state.refreshing) {
+                mythis.setState({refreshing: false});
+                totalList.splice(0, totalList.length);
+            }
+            let responseCode = json.error;
+            if (responseCode == false) {
+                pageCount = json.count;
+                let list = json.results;
+                let currentCount = 0;
+                if (list == null) {
+                    list = [];
+                    currentCount = 0;
+                } else {
+                    currentCount = list.length;
+                }
+                if (currentCount < pageSize) {
+                    //当当前返回的数据小于PageSize时，认为已加载完毕
+                    mythis.setState({foot: 1, moreText: moreText});
+                } else {//设置foot 隐藏Footer
+                    mythis.setState({foot: 0});
+                }
+                for (var i = 0; i < list.length; i++) {
+                    totalList.push(list[i]);
+                }
+                this.setState({
+                    dataSource: this.state.dataSource.cloneWithRows(totalList),
+                    loaded: true,
+                });
+            } else {
+                mythis.setState({error: true, loaded: true});
+            }
+        }).catch(function (error) {
+            console.log(error.message)
+            mythis.setState({error: true, loaded: true});
+        });
     }
 }
 const styles = StyleSheet.create({
