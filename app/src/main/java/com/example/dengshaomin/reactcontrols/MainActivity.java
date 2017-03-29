@@ -3,6 +3,7 @@ package com.example.dengshaomin.reactcontrols;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactRootView;
@@ -34,6 +35,7 @@ public class MainActivity extends Activity implements DefaultHardwareBackBtnHand
         }
 
     }
+
     @Override
     protected void onPause() {
         super.onPause();
@@ -67,4 +69,21 @@ public class MainActivity extends Activity implements DefaultHardwareBackBtnHand
     }
 
 
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_MENU && mReactInstanceManager != null) {
+            mReactInstanceManager.showDevOptionsDialog();
+            return true;
+        }
+        return super.onKeyUp(keyCode, event);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mReactInstanceManager != null) {
+            mReactInstanceManager.onBackPressed();
+        } else {
+            super.onBackPressed();
+        }
+    }
 }

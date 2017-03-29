@@ -5,14 +5,15 @@ import {
     Text,
     PanResponder,
     View,
-    Animated,
+    Animated, Easing,
     LayoutAnimation, TouchableHighlight, ListView, RefreshControl,
-    Image,
+    Image, ActivityIndicator
 } from 'react-native';
 var Dimensions = require('Dimensions');
 var ScreenWidth = Dimensions.get('window').width;
 var ScreenHeight = Dimensions.get('window').height;
 var HeaderHeight = 100;
+var FootHeight = 80;
 var temp = 0;
 var pageNum = 1;
 //每页显示数据的条数
@@ -21,19 +22,18 @@ const pageSize = 10;
 var pageCount = 0;
 //页面List总数据
 var totalList = new Array();
-import LoadingMore from './loading_more.gif'
+import LoadingMore from './loading_more.gif';
 var scrollEnabled = false;
-var test = 1;
+var scrollY;
 export default class MyTouch extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
             bg: 'red',
             bg1: 'pink',
-            width: 300,
-            height: 300,
+            height: 0,
             distant: 0,
-            trans: new Animated.ValueXY({x: 0, y: -HeaderHeight}),
+            trans: new Animated.ValueXY({ x: 0, y: 0 }),
             dataSource: new ListView.DataSource({
                 rowHasChanged: (r1, r2) => r1 !== r2,
             }),
@@ -41,6 +41,7 @@ export default class MyTouch extends React.Component {
             refreshing: false, //刷新
             foot: 0,// 控制foot， 0：隐藏foot  1：已加载完成   2 ：显示加载中
             error: false,
+            scrollEnabled: false,
         }
     }
 
@@ -49,18 +50,28 @@ export default class MyTouch extends React.Component {
 
     _handleStartShouldSetPanResponder(e, gestureState) {
         console.log('aaaaaa');
+        if (scrollY <= 0 && gestureState.dy > 0) {
+            return true;
+        }
+        return false;
+        // return this.state.scrollEnabled;
         return true;
     }
 
     _handleMoveShouldSetPanResponder(e, gestureState) {
         console.log(2);
+        if (scrollY <= 0 && gestureState.dy > 0) {
+            return true;
+        }
+        return false;
+        // return this.state.scrollEnabled;
         return true;
     }
 
     _handlePanResponderGrant(e, gestureState) {
         console.log(4);
         if (gestureState.numberActiveTouches === 2) {
-            this.setState({bg: 'orange'});
+            this.setState({ bg: 'orange' });
         }
     }
 
@@ -82,20 +93,41 @@ export default class MyTouch extends React.Component {
         //     move = -HeaderHeight;
         //     this.setState({distant: move});
         // }
-
+        // this.setState.trans.setValue({ x: 0, y: 0 });
+        Animated.timing(this.state.trans, {
+            toValue: { x: 0, y: -HeaderHeight },
+            easing: Easing.linear,
+            duration: 1000
+        }).start();
     }
-
+    onLayout(e) {
+        if (this.width != e.nativeEvent.layout.width || this.height != e.nativeEvent.layout.height) {
+            if(this.refs!= null && this.refs.listView!= null){
+            this.refs.listView.setNativeProps({ style: { width: e.nativeEvent.layout.width, height: e.nativeEvent.layout.height } });
+            }
+            // this.width = e.nativeEvent.layout.width;
+            // this.height = e.nativeEvent.layout.height;
+            // this.height = e.nativeEvent.layout.height;
+            // this.setState({height:ScreenHeight})
+        }
+    }
     _handlePanResponderMove(e, gestureState) {
         console.log('move');
-        if (gestureState.dy > 0 && this.state.distant)
-            if (gestureState.dy - temp < 5) {
-                return;
+        if (scrollY <= 0 && gestureState.dy > 0) {
+            if (gestureState.dy > 0)
+                if (gestureState.dy - temp < 5) {
+                    return;
+                }
+            temp = (gestureState.dy - temp) * 0.5;
+            if (gestureState.dy >= 0) {
+                // this.state.trans.setValue({ x: 0, y: temp });
+
             }
-        temp = (gestureState.dy - temp) * 0.5;
-        if (gestureState.dy >= 0) {
-            this.state.trans.setValue({x: 0, y: temp});
+            // this.refs.listView.scrollTo({ x: 0, y: -temp })
+            this.setState({ distant: temp });
+        } else {
+            // this.refs.listView.scrollTo({ x: 0, y: -gestureState.dy });
         }
-        // this.setState({distant: temp});
     }
 
     componentWillMount() {
@@ -109,8 +141,8 @@ export default class MyTouch extends React.Component {
         })
         pageNum = 1;
         this.timer = setTimeout(() => {
-                this._fetchListData()
-            }
+            this._fetchListData()
+        }
             ,
             30
         );
@@ -121,36 +153,32 @@ export default class MyTouch extends React.Component {
         this.state.trans.removeAllListeners();
     }
 
-    handleScroll(e) {
-        // var scrollY = e.nativeEvent.contentInset.top + e.nativeEvent.contentOffset.y
-        //
-        // if (this.isTouching || (!this.isTouching && !this.props.ignoreInertialScroll)) {
-        //     if (scrollY < -this.props.minPulldownDistance) {
-        //         if (!this.props.isRefreshing) {
-        //             if (this.props.onRefresh) {
-        //                 this.props.onRefresh()
-        //             }
-        //         }
-        //     }
-        // }
-        console.log('');
+    onScroll(e) {
+        scrollY = e.nativeEvent.contentOffset.y
+        if (e.nativeEvent.contentOffset.y <= 0) {
+            this.setState({ scrollEnabled: false });
+        } else {
+            this.setState({ scrollEnabled: true });
+        }
     }
-
     render() {
         return (
             <Animated.View
-                style={[styles.container, this.state.trans.getLayout(), {backgroundColor: 'blue'}]}>
+                onLayout={this.onLayout}
+                {...this.gestureHandlers.panHandlers}
+                style={[styles.container, this.state.trans.getLayout(), { backgroundColor: 'blue' }]}>
                 <ListView
-                    {...this.gestureHandlers.panHandlers}
-                    ref="listView"
+                    style={{ width: this.width, height: this.height }}
+                    renderHeader={this._renderHeader.bind(this)}
                     enableEmptySections={true}
                     dataSource={this.state.dataSource}
                     renderRow={this._renderRow.bind(this)}
                     renderFooter={this._renderFooter.bind(this)}
-                    renderHeader={this._renderHeader.bind(this)}
                     onEndReached={this._endReached.bind(this)}
+                    onScroll={this.onScroll.bind(this)}
                     onEndReachedThreshold={100}
-                />
+                    style={{ flex: 1,  marginTop:this.state.distant -HeaderHeight}}
+                    />
             </Animated.View>
         )
 
@@ -158,10 +186,10 @@ export default class MyTouch extends React.Component {
 
     _renderRow(rowData) {
         return (
-            <View style={{flex: 1}}>
-                <Image source={{uri: rowData.url}}
-                       style={{width: ScreenWidth, height: ScreenHeight / 2, marginTop: 5}}
-                />
+            <View style={{ flex: 1 }}>
+                <Image source={{ uri: rowData.url }}
+                    style={{ width: ScreenWidth, height: ScreenHeight / 2, marginTop: 5 }}
+                    />
             </View>
         )
     }
@@ -181,24 +209,15 @@ export default class MyTouch extends React.Component {
     }
 
     onRefresh() {
-        this.setState({refreshing: true,});
+        this.setState({ refreshing: true, });
         this._fetchListData();
     }
 
     _renderFooter() {
-        if (this.state.foot === 1) {//加载完毕
-            return (
-                <View style={{height: 40, alignItems: 'center', justifyContent: 'flex-start',}}>
-                    <Text style={{color: '#999999', fontSize: 12, marginTop: 10}}>
-                        {this.state.moreText}
-                    </Text>
-                </View>);
-        } else if (this.state.foot === 2) {//加载中
-            return (
-                <View style={{width: ScreenWidth, height: 80, alignItems: 'center', justifyContent: 'center',}}>
-                    <Image source={LoadingMore} style={{flex: 1}}/>
-                </View>);
-        }
+        return (
+            <View style={{ height: 100 }}>
+                <ActivityIndicator />
+            </View>);
     }
 
     _renderHeader() {
@@ -213,19 +232,19 @@ export default class MyTouch extends React.Component {
     _fetchListData() {
         var mythis = this;
         if (pageNum > 1) {
-            this.setState({loaded: true});
+            this.setState({ loaded: true });
         }
         console.log(this.state.refreshing + "==")
         fetch('http://gank.io/api/search/query/listview/category/福利/count/10/page/' + pageNum).then(response => {
             if (response.ok) {
                 return response.json();
             } else {
-                mythis.setState({error: true, loaded: true});
+                mythis.setState({ error: true, loaded: true });
             }
         }).then(json => {
             console.log(mythis.state.refreshing + "++")
             if (mythis.state.refreshing) {
-                mythis.setState({refreshing: false});
+                mythis.setState({ refreshing: false });
                 totalList.splice(0, totalList.length);
             }
             let responseCode = json.error;
@@ -241,9 +260,9 @@ export default class MyTouch extends React.Component {
                 }
                 if (currentCount < pageSize) {
                     //当当前返回的数据小于PageSize时，认为已加载完毕
-                    mythis.setState({foot: 1, moreText: moreText});
+                    mythis.setState({ foot: 1, moreText: moreText });
                 } else {//设置foot 隐藏Footer
-                    mythis.setState({foot: 0});
+                    mythis.setState({ foot: 0 });
                 }
                 for (var i = 0; i < list.length; i++) {
                     totalList.push(list[i]);
@@ -253,11 +272,11 @@ export default class MyTouch extends React.Component {
                     loaded: true,
                 });
             } else {
-                mythis.setState({error: true, loaded: true});
+                mythis.setState({ error: true, loaded: true });
             }
         }).catch(function (error) {
             console.log(error.message)
-            mythis.setState({error: true, loaded: true});
+            mythis.setState({ error: true, loaded: true });
         });
     }
 }
