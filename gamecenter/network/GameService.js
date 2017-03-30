@@ -19,7 +19,7 @@ export default class GameService extends React.Component {
      *  data:参数
      *  callback:回调函数
      * */
-    static get(url, params, callback) {
+    static getPromise(url, params) {
         if (params) {
             let paramsArray = [];
             //拼接参数
@@ -31,18 +31,8 @@ export default class GameService extends React.Component {
             }
         }
         //fetch请求
-        fetch(url, {
+        return fetch(url, {
             method: 'GET',
-        }).then((response) => {
-            if (response.ok) {
-                return response.json();
-            } else {
-                callback(types.NetStatu.ERROR);
-            }
-        }).then((json) => {
-            callback(types.NetStatu.SUCCESS, json);
-        }).catch(function (error) {
-            callback(types.NetStatu.ERROR);
         });
     }
     /*

@@ -43,6 +43,7 @@ export default StyleSheet.create({
         width: 20, height: 20
     },
     gameIcon: {
+        resizeMode: Image.resizeMode.contain,
         width: 60, height: 60
     },
     logoIcon: {
@@ -56,5 +57,15 @@ export default StyleSheet.create({
     bigSpace: {
         height: 7,
         backgroundColor: colors.diverLine
+    },
+    tag: {
+        color: colors.green,
+        borderColor: colors.green,
+        borderWidth: 1,
+        paddingLeft: 3,
+        paddingRight: 3,
+        fontSize: fonts.font10,
+        textAlign: 'center',
+        textAlignVertical: 'center',
     }
 });

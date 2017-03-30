@@ -72,29 +72,37 @@ class RecommendComponent extends Component {
     _onRefresh(pageIndex) {
         currentPage = pageIndex;
         var th = this;
-        GameService.get('http://gank.io/api/search/query/listview/category/%E7%A6%8F%E5%88%A9/count/30/page/1', null, function (type, json) {
-            if (type == types.NetStatu.SUCCESS) {
-                // _setData(type, json)
-                // console.log('1');
-                // if (currentPage == 1) {
-                //     dataSource = [];
-                // }
-                _dataSource.push(...json.results);
-                th.setState({ dataSource: th.state.dataSource.cloneWithRows(_dataSource), loadingStatu: types.ListViewStatus.FINISH });
-            } else if (type == types.NetStatu.ERROR) {
-                // console.log(2);
-                th.setState({ loadingStatu: types.ListViewStatus.ERROR });
+        const getPromise = GameService.getPromise('http://gank.io/api/search/query/listview/category/%E7%A6%8F%E5%88%A9/count/30/page/1', null);
+        getPromise.then((response) => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                this._callback(types.NetStatu.ERROR);
             }
+        }).then((json) => {
+            this._callback(types.NetStatu.SUCCESS, json);
+        }).catch(function (error) {
+            console.log(error);
+            this._callback(types.NetStatu.ERROR);
         });
+
+    }
+    _callback(type, json) {
+        if (type == types.NetStatu.SUCCESS) {
+            this._setData(type, json)
+            _dataSource.push(...json.results);
+            this.setState({ dataSource: this.state.dataSource.cloneWithRows(_dataSource), loadingStatu: types.ListViewStatus.FINISH });
+        } else if (type == types.NetStatu.ERROR) {
+            this.setState({ loadingStatu: types.ListViewStatus.ERROR });
+        }
     }
     _setData(type, data) {
-        _dataSource.push(...json.results);
-        this.setState({ dataSource: this.state.dataSource.cloneWithRows(this._dataSource), loadingStatu: types.ListViewStatus.FINISH });
+        console.log(3333);
+        // _dataSource.push(...json.results);
+        // this.setState({ dataSource: this.state.dataSource.cloneWithRows(this._dataSource), loadingStatu: types.ListViewStatus.FINISH });
     }
     _renderItem(data) {
-        console.log('render_true');
-        // _dataSource.push(...json.results);
-        return (<LongGameItem />);
+        return (<LongGameItem source={{ uri: 'http://facebook.github.io/react/img/logo_og.png' }} />);
     }
     switchTab(selectedTab) {
         if (this.props.selectedTab !== selectedTab) {

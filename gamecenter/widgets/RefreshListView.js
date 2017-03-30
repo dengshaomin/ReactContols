@@ -35,7 +35,6 @@ export default class RefreshListViewComponent extends Component {
   // }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log(this.props.loadingStatu);
     if (this.state.loadingStatu != this.props.loadingStatu) {
       this.setState({ loadingStatu: this.props.loadingStatu });
     }

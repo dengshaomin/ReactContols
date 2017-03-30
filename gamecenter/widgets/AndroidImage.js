@@ -15,11 +15,15 @@ export default class AndroidImage extends Component {
     }
     render() {
         success = false;
-        if(this.props.source.uri == null){
+        if (this.props.source == null || this.props.source.uri == null) {
+            if (this.props.defaultSource == null || this.props.source.uri == null) {
+                this.props.defaultSource = { uri: 'ppsgame_default_icon' }
+            };
             this.props.source = this.props.defaultSource;
-        }
+        };
+
         if (this.state.loading == 2) {
-            if (this.props.errorSource == null) {
+            if (this.props.errorSource == null ||this.props.errorSource.errorSource.uri == null) {
                 source = this.props.defaultSource;
             } else {
                 source = this.props.errorSource;
