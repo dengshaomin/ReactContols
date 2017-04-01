@@ -5,6 +5,7 @@ import {
     Text,
     TouchableOpacity,
     View,
+    ViewPagerAndroid,
 } from 'react-native';
 import colors from '../values/colors';
 import fonts from '../values/fonts';
@@ -26,7 +27,7 @@ export default class RecommendComponent extends Component {
             <ScrollableTabView renderTabBar={() => <DefaultTabBar />} tabBarActiveTextColor={colors.green} tabBarInactiveTextColor={colors.font1}
                 tabBarUnderlineStyle={{ backgroundColor: colors.green, height: 1 }}
                 tabBarTextStyle={{ fontSize: fonts.font14, paddingTop: 20 }}
-                style={{ height: 100, marginTop: -10 }}
+                style={{ marginTop: -10 }}
                 >
                 <NewGamePage tabLabel='精选' />
                 <Text style={{ flex: 1, backgroundColor: 'red' }} tabLabel='新游' />

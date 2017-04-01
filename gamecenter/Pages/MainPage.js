@@ -18,6 +18,7 @@ import { connect } from 'react-redux';
 import colors from '../values/colors';
 import MineComponent from './MinePage'
 import RecommendComponent from './RecommendPage.js'
+import WeixinTabBar from '../widgets/WeixinTabBar.js'
 class MainPage extends React.Component {
     constructor(props) {
         super(props);

@@ -67,6 +67,7 @@ class RecommendComponent extends Component {
                 </View>
                 <View style={styles.diverLine} />
                 <ViewPagerAndroid
+                    ref={viewPager => { this.viewPage = viewPager; } }
                     removeClippedSubviews={false}
                     initialPage={this.state.pageIndex}
                     style={{ flex: 1 }}

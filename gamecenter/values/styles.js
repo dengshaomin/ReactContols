@@ -78,5 +78,14 @@ export default StyleSheet.create({
         textAlign: 'center',
         justifyContent: 'center',
         textAlignVertical: 'center',
+    },
+    hide: {
+        position: 'absolute',
+        left: 10000
+    },
+    show: {
+        position: 'relative',
+        left: 0
     }
+
 });

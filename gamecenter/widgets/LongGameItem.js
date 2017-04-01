@@ -25,7 +25,7 @@ export default class LongGameItem extends Component {
             data = this.props.data;
         }
         return (
-            <CommonTouchableComp onPress={() => { this.props.onPress(this.props.index) } }>
+            <CommonTouchableComp onPress={() => { this.props.onPress == null ? null : this.props.onPress(this.props.index) } }>
                 <View style={stylesthis.rootView} >
                     <AndroidImage style={styles.gameIcon} dimg={'ppsgame_default_icon'}
                         img={data.icon}
