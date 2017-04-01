@@ -4,7 +4,7 @@ import {
   ListView,
   RefreshControl,
   Text,
-  ProgressBarAndroid as ProgressBar,
+  ActivityIndicator,
   View, Image,
 } from 'react-native';
 import * as types from '../values/types'
@@ -14,16 +14,24 @@ import OvalButtonComp from '../widgets/OvalButtonComp.js'
 import * as GlobalConst from '../GlobalConst.js'
 import LongGameItem from '../widgets/LongGameItem.js'
 import AndroidImage from '../widgets/AndroidImage.js'
-var pageIndex = 1;
+let pageIndex = 1;
+let isLoadMore = true;
+let hasMoreData = true;
+let lastDataSourceSize = 0;
+let dataSourceSize = 0;
 export default class RefreshListViewComponent extends Component {
   constructor(props) {
     super(props);
+    // dataSourceSize = this.props.dataSource._dataBlob.s1.length;
+    if (this.props.isLoadMore != null) isLoadMore = this.props.isLoadMore;
+    if (this.props.hasMoreData != null) hasMoreData = this.props.hasMoreData;
     this.state = {
       loadingStatu: this.props.loadingStatu == null ? types.ListViewStatus.LOADING : this.props.loadingStatu,
     }
     this._onLoadMore.bind(this);
     this._onRefresh.bind(this);
     this._onRetry.bind(this);
+    this._footerView.bind(this);
   }
 
   componentDidMount() {
@@ -35,7 +43,24 @@ export default class RefreshListViewComponent extends Component {
   // }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.state.loadingStatu != this.props.loadingStatu) {
+    // if (pageIndex == 1 && dataSourceSize != 0) { dataSourceSize = 0; } else {
+    //   dataSourceSize = this.props.dataSource._dataBlob.s1.length;
+    // }
+    if (this.state.loadingStatu == types.ListViewStatus.LOADING) {
+      lastDataSourceSize = dataSourceSize;
+      dataSourceSize = 0;
+    } else {
+      dataSourceSize = this.props.dataSource._dataBlob.s1.length;
+    }
+    if (this.props.hasMoreData != null) {
+      hasMoreData = this.props.hasMoreData
+    } else {
+      hasMoreData = (this.props.dataSource == null || (dataSourceSize % GlobalConst.PAGE_SIZE != 0)) ? false : true;
+      if (dataSourceSize == lastDataSourceSize && dataSourceSize != 0) {
+        hasMoreData = false;
+      }
+    };
+    if (this.state.loadingStatu != (this.props.loadingStatu == null ? types.loadingStatu.LOADING : this.props.loadingStatu)) {
       this.setState({ loadingStatu: this.props.loadingStatu });
     }
   }
@@ -50,12 +75,14 @@ export default class RefreshListViewComponent extends Component {
         <ListView
           dataSource={this.props.dataSource}
           renderRow={this._renderRow.bind(this)}
-          onEndReachedThreshold={5}
+          onEndReachedThreshold={30}
+          pageSize={10}
           // scrollRenderAheadDistance={500}
           removeClippedSubviews={true}
-          onEndReached={this.props.isLoadMore ? this._onLoadMore.bind(this) : null}
+          onEndReached={isLoadMore ? this._onLoadMore.bind(this) : null}
           renderSeparator={(sectionID, rowID) => <View key={`${sectionID}-${rowID}`} style={styles.diverLine} />}
-          renderFooter={this.props.isLoadMore ? this._footerView : null}
+          renderFooter={isLoadMore ? this._footerView : null}
+          renderHeader={this.props.renderHeader == null ? null : () => this.props.renderHeader()}
           refreshControl={
             <RefreshControl
               refreshing={this.state.loadingStatu == types.ListViewStatus.LOADING ? true : false}
@@ -89,6 +116,9 @@ export default class RefreshListViewComponent extends Component {
   }
 
   _renderErrorView() {
+    if (hasMoreData) {
+      return null;
+    }
     return (
       <View style={[{
         flex: 1,
@@ -118,8 +148,9 @@ export default class RefreshListViewComponent extends Component {
     if (this.state.loadingStatu == types.ListViewStatus.LOADING) {
       return;
     }
+    pageIndex = 1;
     this.setState({ loadingStatu: types.ListViewStatus.LOADING });
-    this.props.onRefresh(1);
+    this.props.onRefresh(pageIndex);
   }
 
   /**
@@ -129,21 +160,29 @@ export default class RefreshListViewComponent extends Component {
     if (this.state.loadingStatu == types.ListViewStatus.LOADINGMORE) {
       return;
     }
-    if (this.props.dataSource.lenght / GlobalConst.PAGE_SIZE != 0) {
+    if (!hasMoreData) {
       return;
     }
-    tthis.setState({ loadingStatu: types.ListViewStatus.LOADINGMORE });
+    // if (pageIndex == 1) { pageIndex = 2 } else {
+    pageIndex = dataSourceSize / GlobalConst.PAGE_SIZE + 1;
+    // }
+    this.setState({ loadingStatu: types.ListViewStatus.LOADINGMORE });
     // 延迟1秒再调用数据
-    setTimeout(() => {
-      this.props.onLoadMore(this.props.dataSource.lenght / GlobalConst.PAGE_SIZE);
-    }, 0)
+    this.props.onLoadMore(pageIndex);
   }
 
   _footerView() {
+    // console.log(5 + "=" + this.props.loadingStatu + "=" + hasMoreData + "=" + this.props.dataSource._dataBlob.s1.length);
+    if (!hasMoreData) return (
+      <View style={{ height: 40, flexDirection: 'row', justifyContent: 'center' }}>
+        <Text style={{ marginLeft: 5, textAlign: 'center', textAlignVertical: 'center' }}>
+          没有更多数据...
+        </Text>
+      </View>);
     return (
-      <View >
-        <ProgressBar styleAttr="Small" />
-        <Text>
+      <View style={{ height: 40, flexDirection: 'row', justifyContent: 'center' }}>
+        <ActivityIndicator styleAttr="Small" />
+        <Text style={{ marginLeft: 5, textAlign: 'center', textAlignVertical: 'center' }}>
           正在加载中...
         </Text>
       </View>

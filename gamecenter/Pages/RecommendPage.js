@@ -5,7 +5,6 @@ import {
     Text,
     TouchableOpacity,
     View,
-    Image
 } from 'react-native';
 import colors from '../values/colors';
 import fonts from '../values/fonts';

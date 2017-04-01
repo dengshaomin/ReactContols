@@ -46,8 +46,8 @@ export default class MineComponent extends Component {
                             <Text style={{ marginLeft: 5, fontSize: fonts.font13, color: colors.red }}>220</Text>
                         </View>
                     </View>
-                    <AndroidImage style={[styles.logoIcon, { marginLeft: 10, marginTop: -70, marginBottom: 15 }]} defaultSource={{ uri: 'logo_default' }}
-                        source={{ uri: '11' }} />
+                    <AndroidImage style={[styles.logoIcon, { marginLeft: 10, marginTop: -70, marginBottom: 15 }]} dimg={'logo_default'}
+                        img={'11'} />
                 </View>
                 <View style={styles.bigSpace} />
                 <LeftIconRightArrowItem leftIcon='icon_task' title='任务中心' index='0' onPress={this._onPress.bind(this)} />

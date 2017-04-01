@@ -9,4 +9,8 @@ export const ListViewStatus = {
 export const NetStatu = {
     SUCCESS: 'net_success',
     ERROR: 'net_error'
+};
+export const GameType = {
+    H5: '7',
+    READY: '8'
 }

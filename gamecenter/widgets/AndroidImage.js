@@ -5,6 +5,8 @@ import {
     Image
 } from 'react-native';
 var source;
+var defaultSource;
+var errorSource;
 var success = false;
 export default class AndroidImage extends Component {
     constructor(props) {
@@ -15,24 +17,14 @@ export default class AndroidImage extends Component {
     }
     render() {
         success = false;
-        if (this.props.source == null || this.props.source.uri == null) {
-            if (this.props.defaultSource == null || this.props.source.uri == null) {
-                this.props.defaultSource = { uri: 'ppsgame_default_icon' }
-            };
-            this.props.source = this.props.defaultSource;
-        };
-
+        defaultSource = { uri: this.props.dimg == null ? 'ppsgame_default_icon' : this.props.dimg }
+        source = { uri: this.props.img == null ? defaultSource.uri : this.props.img }
+        errorSource = { uri: this.props.eimg == null ? defaultSource.uri : this.props.eimg }
         if (this.state.loading == 2) {
-            if (this.props.errorSource == null ||this.props.errorSource.errorSource.uri == null) {
-                source = this.props.defaultSource;
-            } else {
-                source = this.props.errorSource;
-            }
-        } else {
-            source = this.props.source;
-        }
+            source = errorSource;
+        } 
         return (
-            <Image style={this.props.style} defaultSource={this.props.defaultSource} source={source}
+            <Image style={this.props.style} defaultSource={defaultSource} source={source}
                 onLoadEnd={this._onLoadEnd.bind(this)} onLoad={this._onLoad.bind(this)}>
             </Image>
         )

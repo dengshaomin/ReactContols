@@ -61,11 +61,22 @@ export default StyleSheet.create({
     tag: {
         color: colors.green,
         borderColor: colors.green,
-        borderWidth: 1,
+        borderWidth: 0.5,
         paddingLeft: 3,
         paddingRight: 3,
         fontSize: fonts.font10,
         textAlign: 'center',
+        textAlignVertical: 'center',
+    },
+    progressButton: {
+        color: colors.green,
+        borderColor: colors.green,
+        borderRadius: 25,
+        borderWidth: 0.5,
+        height: 30, width: 70,
+        fontSize: fonts.font12,
+        textAlign: 'center',
+        justifyContent: 'center',
         textAlignVertical: 'center',
     }
 });
