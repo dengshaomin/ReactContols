@@ -14,6 +14,8 @@ import AndroidImage from '../widgets/AndroidImage'
 import * as GlobalConst from '../GlobalConst'
 import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view'
 import NewGamePage from './NewGamePage'
+import CategoryPage from './CategoryPage.js'
+import ChoicePage from './ChoicePage.js'
 export default class RecommendComponent extends Component {
     constructor(props) {
         super(props);
@@ -29,9 +31,9 @@ export default class RecommendComponent extends Component {
                 tabBarTextStyle={{ fontSize: fonts.font14, paddingTop: 20 }}
                 style={{ marginTop: -10 }}
                 >
-                <NewGamePage tabLabel='精选' />
-                <Text style={{ flex: 1, backgroundColor: 'red' }} tabLabel='新游' />
-                <Text tabLabel='分类' />
+                <ChoicePage tabLabel='精选' />
+                <NewGamePage tabLabel='新游' />
+                <CategoryPage tabLabel='分类' />
                 <Text tabLabel='排行' />
             </ScrollableTabView>
         );

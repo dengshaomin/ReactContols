@@ -71,7 +71,7 @@ class RecommendComponent extends Component {
                     removeClippedSubviews={false}
                     initialPage={this.state.pageIndex}
                     style={{ flex: 1 }}
-                    scrollEnabled={false}
+                    onPageSelected={this.onPageSelected.bind(this)}
                     ref={viewPager => { this.viewPage = viewPager; } }>
                     <View >
                         <LastGameComponent />
@@ -94,7 +94,9 @@ class RecommendComponent extends Component {
         //         this.props.dispatch(switchTitleBarTab(reducertypes.NEW_GAME_SWITCH_TAB, selectedTab));
         //     }
     }
-
+    onPageSelected(e) {
+        this.setState({ pageIndex: e.nativeEvent.position });
+    }
 }
 function select(store) {
     return {
