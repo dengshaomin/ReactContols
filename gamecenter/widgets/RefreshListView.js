@@ -14,18 +14,19 @@ import OvalButtonComp from '../widgets/OvalButtonComp.js'
 import * as GlobalConst from '../GlobalConst.js'
 import LongGameItem from '../widgets/LongGameItem.js'
 import AndroidImage from '../widgets/AndroidImage.js'
-let pageIndex = 1;
-let isLoadMore = true;
-let hasMoreData = true;
-let lastDataSourceSize = 0;
-let dataSourceSize = 0;
+
 export default class RefreshListViewComponent extends Component {
   constructor(props) {
     super(props);
+    this.isLoadMore = true;
+    this.pageIndex = 1;
+    this.isLoadMore = true;
+    this.hasMoreData = true;
+    this.lastDataSourceSize = 0;
+    this.dataSourceSize = 0;
     // dataSourceSize = this.props.dataSource._dataBlob.s1.length;
-    if (this.props.isLoadMore != null) isLoadMore = this.props.isLoadMore;
-    console.log(isLoadMore);
-    if (this.props.hasMoreData != null) hasMoreData = this.props.hasMoreData;
+    if (this.props.isLoadMore != null) this.isLoadMore = this.props.isLoadMore;
+    if (this.props.hasMoreData != null) this.hasMoreData = this.props.hasMoreData;
     this.state = {
       loadingStatu: this.props.loadingStatu == null ? types.ListViewStatus.LOADING : this.props.loadingStatu,
     }
@@ -37,7 +38,7 @@ export default class RefreshListViewComponent extends Component {
   }
 
   componentDidMount() {
-    this.props.onRefresh(pageIndex);
+    this.props.onRefresh(this.pageIndex);
   }
 
   // shouldComponentUpdate(nextProps, nextState) {
@@ -49,7 +50,7 @@ export default class RefreshListViewComponent extends Component {
     //   dataSourceSize = this.props.dataSource._dataBlob.s1.length;
     // }
     if (this.props.dataSource != null && this.props.dataSource._dataBlob != null && this.props.dataSource._dataBlob.s1 != null) {
-      dataSourceSize = this.props.dataSource._dataBlob.s1.length;
+      this.dataSourceSize = this.props.dataSource._dataBlob.s1.length;
     }
     // hasMoreData = this._hasMoreData();
     // lastDataSourceSize = dataSourceSize;
@@ -72,9 +73,9 @@ export default class RefreshListViewComponent extends Component {
           pageSize={10}
           // scrollRenderAheadDistance={500}
           removeClippedSubviews={true}
-          onEndReached={isLoadMore ? this._onLoadMore.bind(this) : null}
+          onEndReached={this.isLoadMore ? this._onLoadMore.bind(this) : null}
           renderSeparator={(sectionID, rowID) => <View key={`${sectionID}-${rowID}`} style={styles.diverLine} />}
-          renderFooter={isLoadMore ? this._footerView.bind(this) : null}
+          renderFooter={this.isLoadMore ? this._footerView.bind(this) : null}
           renderHeader={this.props.renderHeader == null ? null : () => this.props.renderHeader()}
           contentContainerStyle={this.props.contentContainerStyle == null ? null : this.props.contentContainerStyle}
           refreshControl={
@@ -84,7 +85,7 @@ export default class RefreshListViewComponent extends Component {
               tintColor='#AAAAAA'
               title='下拉刷新'
               progressBackgroundColor='#FFFFFF' />}
-          />
+        />
       );
     }
     return (
@@ -93,24 +94,24 @@ export default class RefreshListViewComponent extends Component {
   }
   _hasMoreData() {
     if (this.props.dataSource != null && this.props.dataSource._dataBlob != null && this.props.dataSource._dataBlob.s1 != null) {
-      dataSourceSize = this.props.dataSource._dataBlob.s1.length;
+      this.dataSourceSize = this.props.dataSource._dataBlob.s1.length;
     }
     if (this.state.loadingStatu == types.ListViewStatus.LOADING) {
-      dataSourceSize = 0;
+      this.dataSourceSize = 0;
       return true;
     } else {
       if (this.props.hasMoreData != null) {
         return this.props.hasMoreData
       } else {
-        if (dataSourceSize == lastDataSourceSize && dataSourceSize != 0) {
+        if (this.dataSourceSize == this.lastDataSourceSize && this.dataSourceSize != 0) {
           return false;
         }
-        return (this.props.dataSource == null || (dataSourceSize % GlobalConst.PAGE_SIZE == 0)) ? true : false;
+        return (this.props.dataSource == null || (this.dataSourceSize % GlobalConst.PAGE_SIZE == 0)) ? true : false;
       };
     }
   }
-  _renderRow(data) {
-    return this.props.renderRow(data);
+  _renderRow(data,sectionID,rowID) {
+    return this.props.renderRow(data,rowID);
   }
   _renderLoadingView() {
     return (
@@ -160,9 +161,9 @@ export default class RefreshListViewComponent extends Component {
     if (this.state.loadingStatu == types.ListViewStatus.LOADING) {
       return;
     }
-    pageIndex = 1;
+    this.pageIndex = 1;
     this.setState({ loadingStatu: types.ListViewStatus.LOADING });
-    this.props.onRefresh(pageIndex);
+    this.props.onRefresh(this.pageIndex);
   }
 
   /**
@@ -176,32 +177,27 @@ export default class RefreshListViewComponent extends Component {
       return;
     }
     // if (pageIndex == 1) { pageIndex = 2 } else {
-    pageIndex = dataSourceSize / GlobalConst.PAGE_SIZE + 1;
+    this.pageIndex = this.dataSourceSize / GlobalConst.PAGE_SIZE + 1;
     // }
     this.setState({ loadingStatu: types.ListViewStatus.LOADINGMORE });
     // 延迟1秒再调用数据
-    this.props.onLoadMore(pageIndex);
+    this.props.onLoadMore(this.pageIndex);
   }
   _footerView() {
-    console.log(2);
-    try {
-      if (!this._hasMoreData()) return (
-        <View style={{ height: 40, flexDirection: 'row', justifyContent: 'center' }}>
-          <Text style={{ marginLeft: 5, textAlign: 'center', textAlignVertical: 'center' }}>
-            没有更多数据...
+    if (!this._hasMoreData()) return (
+      <View style={{ height: 40, flexDirection: 'row', justifyContent: 'center' }}>
+        <Text style={{ marginLeft: 5, textAlign: 'center', textAlignVertical: 'center' }}>
+          没有更多数据...
         </Text>
-        </View>);
-      return (
-        <View style={{ height: 40, flexDirection: 'row', justifyContent: 'center' }}>
-          <ActivityIndicator styleAttr="Small" />
-          <Text style={{ marginLeft: 5, textAlign: 'center', textAlignVertical: 'center' }}>
-            正在加载中...
+      </View>);
+    return (
+      <View style={{ height: 40, flexDirection: 'row', justifyContent: 'center' }}>
+        <ActivityIndicator styleAttr="Small" />
+        <Text style={{ marginLeft: 5, textAlign: 'center', textAlignVertical: 'center' }}>
+          正在加载中...
         </Text>
-        </View>
-      );
-    } catch (e) {
-      console.log(e);
-    }
+      </View>
+    );
   }
 
   _onItemViewPress(gankData) {

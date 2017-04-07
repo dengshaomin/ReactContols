@@ -14,3 +14,9 @@ export const GameType = {
     H5: '7',
     READY: '8'
 }
+export const RankingType = {
+    CHOICE: '1',
+    HOT: '2',
+    UP: '3',
+    NEW: '4'
+}

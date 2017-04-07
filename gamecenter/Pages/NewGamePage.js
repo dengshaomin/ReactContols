@@ -26,7 +26,7 @@ import ReadyGameComponent from './ReadyGamePage'
 var currentPage = 1;
 var _dataSource = new Array();
 let pages = [];
-class RecommendComponent extends Component {
+class NewGameComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -104,5 +104,5 @@ function select(store) {
     }
 }
 
-export default connect(select)(RecommendComponent);
+export default connect(select)(NewGameComponent);
 
