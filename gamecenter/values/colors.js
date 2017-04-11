@@ -1,6 +1,7 @@
 export default {
     backGround: "#E7E7E7",
     statubar: "#000000",
+    translate:"#00000000",
     green: "#0bbe06",
     black: "#000000",
     red: 'red',

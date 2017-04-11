@@ -6,6 +6,7 @@ import {
     TouchableOpacity,
     View,
     ViewPagerAndroid,
+    ToolbarAndroid,
 } from 'react-native';
 import colors from '../values/colors';
 import fonts from '../values/fonts';
@@ -17,26 +18,30 @@ import NewGamePage from './NewGamePage'
 import CategoryPage from './CategoryPage.js'
 import ChoicePage from './ChoicePage.js'
 import RankingPage from './RankingPage.js'
+import AppToolBar from '../widgets/AppToolBar.js'
+import * as Routes from './Routes.js'
 export default class RecommendComponent extends Component {
-    constructor(props) {
-        super(props);
+    constructor(props, context) {
+        super(props, context);
     }
 
-    componentDidMount() {
-    }
 
     render() {
         return (
-            <ScrollableTabView renderTabBar={() => <DefaultTabBar />} tabBarActiveTextColor={colors.green} tabBarInactiveTextColor={colors.font1}
-                tabBarUnderlineStyle={{ backgroundColor: colors.green, height: 1 }}
-                tabBarTextStyle={{ fontSize: fonts.font14, paddingTop: 20 }}
-                style={{ marginTop: -10 }}
+            <View style={{ flex: 1 }}>
+                <AppToolBar titleCenter='游戏中心' navigator={this.props.navigator} />
+                <ScrollableTabView renderTabBar={() => <DefaultTabBar />} tabBarActiveTextColor={colors.green} tabBarInactiveTextColor={colors.font1}
+                    tabBarUnderlineStyle={{ backgroundColor: colors.green, height: 1 }}
+                    tabBarTextStyle={{ fontSize: fonts.font14, paddingTop: 20 }}
+                    style={{ marginTop: -10 }}
                 >
-                <ChoicePage tabLabel='精选' />
-                <NewGamePage tabLabel='新游' />
-                <CategoryPage tabLabel='分类' />
-                <RankingPage tabLabel='排行' />
-            </ScrollableTabView>
+                    <ChoicePage tabLabel='精选' navigator={this.props.navigator} />
+                    <NewGamePage tabLabel='新游' navigator={this.props.navigator} />
+                    <CategoryPage tabLabel='分类' navigator={this.props.navigator} />
+                    <RankingPage tabLabel='排行' navigator={this.props.navigator} />
+
+                </ScrollableTabView>
+            </View >
         );
     }
 

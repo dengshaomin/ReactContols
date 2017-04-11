@@ -10,7 +10,7 @@ import { Navigator, StatusBar, StyleSheet, View, BackAndroid, Platform } from 'r
 import MainPage from './MainPage';
 import { showToast } from '../tools/toast';
 import colors from '../values/colors'
-
+import * as Routes from './Routes.js'
 
 class RootPage extends Component {
 
@@ -48,12 +48,7 @@ class RootPage extends Component {
     return (
       <View style={styles.container}>
         <StatusBar translucent={false} backgroundColor={colors.statubar} />
-        <Navigator
-          ref={component => this.navigator = component}
-          initialRoute={{}}
-          configureScene={this.handlerConfigureScene}
-          renderScene={this._renderScene.bind(this)}
-          />
+        {Routes.navigator('main')}
       </View>
     );
   }
@@ -75,7 +70,6 @@ class RootPage extends Component {
   }
 
   _onBack() {
-    console.log(1111);
     // 判断是否有子组件需要消耗返回键事件
     for (let i = this.backButtonListeners.length - 1; i >= 0; i--) {
       if (this.backButtonListeners[i]()) return true;
@@ -103,7 +97,7 @@ class RootPage extends Component {
 
   _renderScene(route, navigator) {
     if (route && route.component) {
-      var {component: Component, ...route} = route;
+      var { component: Component, ...route } = route;
       return <Component navigator={navigator} {...route} />;
     }
 

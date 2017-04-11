@@ -6,6 +6,7 @@ import RootPage from './Pages/RootPage'
 const store = configureStore();
 import { DEBUG, RDEBUG } from './GlobalConst';
 import SplashPage from './SplashPage'
+import MainPage from './Pages/MainPage'
 global.LOG = (msg) => {
     if (DEBUG) console.log(msg);
 }
@@ -31,7 +32,7 @@ export default class App extends Component {
         } else {
             return (
                 <Provider store={store}>
-                    <RootPage />
+                    <RootPage/>
                 </Provider>
             );
         }

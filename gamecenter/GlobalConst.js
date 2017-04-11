@@ -8,3 +8,5 @@ export const COMMON_BACKGROUND_COLOR = '#F5FCFF'; // 统一背景颜色
 
 export const APP_VERSION = 'V1.0'; 
 export const PAGE_SIZE = 10;
+
+export const props1 = "props1";

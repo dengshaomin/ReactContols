@@ -19,6 +19,7 @@ import colors from '../values/colors';
 import MineComponent from './MinePage'
 import RecommendComponent from './RecommendPage.js'
 import WeixinTabBar from '../widgets/WeixinTabBar.js'
+import * as Routes from './Routes.js'
 class MainPage extends React.Component {
     constructor(props) {
         super(props);
@@ -38,7 +39,8 @@ class MainPage extends React.Component {
                         renderSelectedIcon={() => <Image style={styles.tabIcon} source={{ uri: 'icon_recommend_p' }}
                             />}
                         onPress={this.switchTab.bind(this, TYPES.HOME_TABS.RECOMMEND)}>
-                        <RecommendComponent />
+                        <RecommendComponent navigator={this.props.navigator}/>
+                        {/*Routes.navigator('recommend') 用这个跳转子页面的时候底部导航栏不消失*/} 
                     </TabNavigator.Item>
 
                     <TabNavigator.Item
@@ -65,7 +67,7 @@ class MainPage extends React.Component {
                         renderSelectedIcon={() => <Image style={styles.tabIcon} source={{ uri: 'icon_mine_p' }}
                             />}
                         onPress={this.switchTab.bind(this, TYPES.HOME_TABS.MINE)}>
-                        <MineComponent />
+                        {Routes.navigator('mine')}
                     </TabNavigator.Item>
                 </TabNavigator>
             </View>

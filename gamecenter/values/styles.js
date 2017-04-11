@@ -58,6 +58,10 @@ export default StyleSheet.create({
         height: 7,
         backgroundColor: colors.diverLine
     },
+    toolBar: {
+        height: 56,
+        backgroundColor: colors.white,
+    },
     tag: {
         color: colors.green,
         borderColor: colors.green,
