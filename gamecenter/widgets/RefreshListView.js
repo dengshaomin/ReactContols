@@ -5,7 +5,7 @@ import {
   RefreshControl,
   Text,
   ActivityIndicator,
-  View, Image,
+  View, Image, InteractionManager
 } from 'react-native';
 import * as types from '../values/types'
 import styles from '../values/styles'
@@ -110,8 +110,8 @@ export default class RefreshListViewComponent extends Component {
       };
     }
   }
-  _renderRow(data,sectionID,rowID) {
-    return this.props.renderRow(data,rowID);
+  _renderRow(data, sectionID, rowID) {
+    return this.props.renderRow(data, rowID);
   }
   _renderLoadingView() {
     return (
@@ -163,7 +163,10 @@ export default class RefreshListViewComponent extends Component {
     }
     this.pageIndex = 1;
     this.setState({ loadingStatu: types.ListViewStatus.LOADING });
-    this.props.onRefresh(this.pageIndex);
+    InteractionManager.runAfterInteractions(() => {
+      this.props.onRefresh(this.pageIndex);
+    });
+
   }
 
   /**

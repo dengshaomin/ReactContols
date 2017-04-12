@@ -25,7 +25,7 @@ export default class LongGameItem extends Component {
             data = this.props.data;
         }
         return (
-            <CommonTouchableComp onPress={() => { this.props.onPress == null ? null : this.props.onPress(this.props.index) }}>
+            <CommonTouchableComp onPress={this.onPress.bind(this)}>
                 <View style={stylesthis.rootView} >
                     <AndroidImage style={styles.gameIcon} dimg={'ppsgame_default_icon'}
                         img={data.icon}
@@ -43,7 +43,10 @@ export default class LongGameItem extends Component {
             </CommonTouchableComp>
         );
     }
-
+    onPress() {
+        this.props.navigator.push({ id: 'gamedetail', gameId: data.qipu_id });
+        this.props.onPress == null ? null : this.props.onPress(data, this.props.index);
+    }
     _getGameNums() {
         if (types.GameType.H5 == data.game_type) {
             return data.cnt + '次游玩' + " " + data.size;

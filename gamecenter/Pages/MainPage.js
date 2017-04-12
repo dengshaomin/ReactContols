@@ -67,7 +67,7 @@ class MainPage extends React.Component {
                         renderSelectedIcon={() => <Image style={styles.tabIcon} source={{ uri: 'icon_mine_p' }}
                             />}
                         onPress={this.switchTab.bind(this, TYPES.HOME_TABS.MINE)}>
-                        {Routes.navigator('mine')}
+                        <MineComponent navigator={this.props.navigator}/>
                     </TabNavigator.Item>
                 </TabNavigator>
             </View>

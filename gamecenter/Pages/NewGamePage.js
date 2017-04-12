@@ -23,6 +23,7 @@ import * as GlobalConst from '../GlobalConst.js'
 import LongGameItem from '../widgets/LongGameItem.js'
 import LastGameComponent from './LastGamePage.js'
 import ReadyGameComponent from './ReadyGamePage'
+import * as Routes from './Routes.js'
 var currentPage = 1;
 var _dataSource = new Array();
 let pages = [];
@@ -35,7 +36,6 @@ class NewGameComponent extends Component {
     }
 
     componentDidMount() {
-        this.setState({ pageIndex: 0 });
     }
 
     render() {
@@ -67,14 +67,14 @@ class NewGameComponent extends Component {
                 </View>
                 <View style={styles.diverLine} />
                 <ViewPagerAndroid
-                    ref={viewPager => { this.viewPage = viewPager; } }
+                    ref={viewPager => { this.viewPage = viewPager; }}
                     removeClippedSubviews={false}
                     initialPage={this.state.pageIndex}
                     style={{ flex: 1 }}
                     onPageSelected={this.onPageSelected.bind(this)}
-                    ref={viewPager => { this.viewPage = viewPager; } }>
+                    ref={viewPager => { this.viewPage = viewPager; }}>
                     <View >
-                        <LastGameComponent />
+                        <LastGameComponent navigator={this.props.navigator} />
                     </View>
                     <View>
                         <ReadyGameComponent />
@@ -84,11 +84,10 @@ class NewGameComponent extends Component {
         );
     }
     switchTab(selectedTab) {
-        this.viewPage.setPage(selectedTab);
         if (this.state.pageIndex != selectedTab) {
             this.setState({ pageIndex: selectedTab });
         }
-
+        this.viewPage.setPage(selectedTab);
         // if (reducertypes.NEW_GAME_TABS.READY)
         //     if (this.props.selectedTab !== selectedTab) {
         //         this.props.dispatch(switchTitleBarTab(reducertypes.NEW_GAME_SWITCH_TAB, selectedTab));

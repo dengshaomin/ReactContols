@@ -42,9 +42,16 @@ export default StyleSheet.create({
         resizeMode: Image.resizeMode.contain,
         width: 20, height: 20
     },
+    buttonIcon: {
+        resizeMode: Image.resizeMode.contain,
+        width: 30, height: 30
+    },
     gameIcon: {
         resizeMode: Image.resizeMode.contain,
-        width: 60, height: 60
+        width: 60, height: 60,
+        // borderColor: colors.white,
+        // borderWidth: 0.5,
+        // borderRadius: 15,
     },
     logoIcon: {
         resizeMode: Image.resizeMode.contain,
