@@ -10,6 +10,7 @@ import {
     StatusBar,
     WebView,
     InteractionManager,
+    ProgressBarAndroid,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import colors from '../values/colors';
@@ -24,13 +25,16 @@ import * as types from '../values/types.js'
 import CommonTouchableComp from '../widgets/CommonTouchableComp.js'
 import GameService from '../network/GameService.js'
 import AutoHeightWebView from '../widgets/AutoHeightWebView.js'
-
+import * as Progress from 'react-native-progress';
+import ProgressBar from '../widgets/IProgressButton.js'
+import ProgressButton from '../widgets/ProgressButton.js'
 export default class GameDetailComponent extends Component {
     constructor(props) {
         super(props);
         this.gameId = this.props.gameId;
         this.gameData;
         this.state = {
+            message: null,
             numberOfLines: 2,
             loadingStatu: types.ListViewStatus.LOADING,
             preViewDataSource: new ListView.DataSource({
@@ -94,25 +98,41 @@ export default class GameDetailComponent extends Component {
                     </View>
                 </ScrollView>
 
-                <View style={{ flexDirection: 'row', padding: 10 }} position='absolute'>
-                    <CommonTouchableComp onPress={this.backPress.bind(this)}>
-                        <Image style={[styles.buttonIcon, {}]} source={{ uri: 'icon_gdetail_back' }} />
-                    </CommonTouchableComp>
-                    <View style={{ flex: 1, alignItems: 'flex-end' }}>
-                        <View style={{ flexDirection: 'row' }}>
-                            <Image style={[styles.buttonIcon, {}]} source={{ uri: 'icon_gdetail_search' }} />
-                            <Image style={[styles.buttonIcon, { marginLeft: 20 }]} source={{ uri: 'icon_gdetail_download_normal' }} />
-                        </View>
-                    </View>
-                </View>
-                <View position='absolute' style={{ top: Screen.getScreenHeight() - 66 - Screen.getStatuBarHeight(), backgroundColor: 'black', width: Screen.getScreenWidth(), height: 66, marginBottom: 50 }} opacity={0.2} >
+                {this.renderTopLay()}
+                {this.renderBottomLay()}
+                <Text style={[styles.progressButton, styles.font1_14, { position: 'absolute', width: Screen.getScreenWidth() - 30, height: 50, margin: 15, backgroundColor: colors.green, bottom: 10 }]}>下载</Text>
 
-                </View>
             </View >
         );
     }
+    onPress() {
+        this.setState({
+            message: "Action Completed!!"
+        });
+        setTimeout(() => {
+            this.setState({
+                message: null
+            });
+        }, 500);
+    }
     backPress() {
         this.props.navigator.pop();
+    }
+    renderTopLay() {
+        return (<View style={{ flexDirection: 'row', padding: 10 }} position='absolute'>
+            <CommonTouchableComp onPress={this.backPress.bind(this)}>
+                <Image style={[styles.buttonIcon, {}]} source={{ uri: 'icon_gdetail_back' }} />
+            </CommonTouchableComp>
+            <View style={{ flex: 1, alignItems: 'flex-end' }}>
+                <View style={{ flexDirection: 'row' }}>
+                    <Image style={[styles.buttonIcon, {}]} source={{ uri: 'icon_gdetail_search' }} />
+                    <Image style={[styles.buttonIcon, { marginLeft: 20 }]} source={{ uri: 'icon_gdetail_download_normal' }} />
+                </View>
+            </View>
+        </View>);
+    }
+    renderBottomLay() {
+
     }
     renderPreView() {
         return (<ListView
