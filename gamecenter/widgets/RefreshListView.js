@@ -38,7 +38,11 @@ export default class RefreshListViewComponent extends Component {
   }
 
   componentDidMount() {
-    this.props.onRefresh(this.pageIndex);
+    let th = this;
+    // this.timer = setTimeout(() => {
+    //   if (this.props.onRefresh != null)
+    //     this.props.onRefresh(this.pageIndex);
+    // }, 500);
   }
 
   // shouldComponentUpdate(nextProps, nextState) {
@@ -158,15 +162,15 @@ export default class RefreshListViewComponent extends Component {
    * 下拉刷新
    */
   _onRefresh() {
-    if (this.state.loadingStatu == types.ListViewStatus.LOADING) {
-      return;
-    }
+    // if (this.state.loadingStatu == types.ListViewStatus.LOADING) {
+    //   return;
+    // }
     this.pageIndex = 1;
     this.setState({ loadingStatu: types.ListViewStatus.LOADING });
-    InteractionManager.runAfterInteractions(() => {
-      this.props.onRefresh(this.pageIndex);
-    });
-
+    this.timer = setTimeout(() => {
+      if (this.props.onRefresh != null)
+        this.props.onRefresh(this.pageIndex);
+    }, 500);
   }
 
   /**

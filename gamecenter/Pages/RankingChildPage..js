@@ -44,7 +44,7 @@ export default class RankingChildComponent extends Component {
         return (
             <View style={{ flex: 1 }}>
                 <RefreshListViewComponent dataSource={this.state.dataSource} loadingStatu={this.state.loadingStatu} renderRow={this._renderItem.bind(this)}
-                    onRefresh={this._onRefresh.bind(this)} onLoadMore={this._onLoadMore.bind(this)} />
+                     onRefresh={this._onRefresh.bind(this)} onLoadMore={this._onLoadMore.bind(this)} />
             </View>
         );
     }

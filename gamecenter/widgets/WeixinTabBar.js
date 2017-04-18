@@ -21,9 +21,10 @@ class WeixinTabBar extends Component {
 
         tabNames: React.PropTypes.array, // 保存Tab名称
         tabIconNames: React.PropTypes.array, // 保存Tab图标
+        unTabIconNames: React.PropTypes.array, // 未选中Tab图标
     }
 
-    setAnimationValue({value}) {
+    setAnimationValue({ value }) {
         console.log(value);
     }
 
@@ -37,8 +38,8 @@ class WeixinTabBar extends Component {
         return (
             <TouchableOpacity onPress={() => this.props.goToPage(i)} style={thisstyles.tab}>
                 <View style={thisstyles.tabItem}>
-                    <Image color={color} style={styles.miniIcon} source={{ uri: this.props.tabIconNames[i] }} />
-                    <Text style={{ color: color }}>
+                    <Image color={color} style={styles.buttonIcon} source={{ uri: this.props.activeTab == i ? this.props.tabIconNames[i] : this.props.unTabIconNames[i] }} />
+                    <Text style={{ color: color, fontSize: fonts.font11 }}>
                         {this.props.tabNames[i]}
                     </Text>
                 </View>

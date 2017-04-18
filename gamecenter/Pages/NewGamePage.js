@@ -44,24 +44,24 @@ class NewGameComponent extends Component {
                 <View style={{ margin: 10, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
                     <Button
                         style={{
-                            fontSize: fonts.font13, color: this.state.pageIndex == 0 ? colors.white : colors.green,
+                            fontSize: fonts.font13, color: this.props.selectedTab == reducertypes.NEW_GAME_TABS.LAST ? colors.white : colors.green,
                             paddingTop: 5, paddingBottom: 5, paddingLeft: 25, paddingRight: 25,
                             textAlign: 'center',
-                            backgroundColor: this.state.pageIndex == 0 ? colors.green : colors.white,
+                            backgroundColor: this.props.selectedTab == reducertypes.NEW_GAME_TABS.LAST ? colors.green : colors.white,
                             borderColor: colors.green, borderWidth: 1,
                         }}
-                        onPress={() => this.switchTab(0)}>
+                        onPress={() => this.switchTab(reducertypes.NEW_GAME_TABS.LAST)}>
                         最新上线
                     </Button>
                     <Button
                         style={{
-                            fontSize: fonts.font13, color: this.state.pageIndex == 0 ? colors.green : colors.white,
+                            fontSize: fonts.font13, color: this.props.selectedTab == reducertypes.NEW_GAME_TABS.LAST ? colors.green : colors.white,
                             paddingTop: 5, paddingBottom: 5, paddingLeft: 25, paddingRight: 25,
                             textAlign: 'center',
-                            backgroundColor: this.state.pageIndex == 0 ? colors.white : colors.green,
+                            backgroundColor: this.props.selectedTab == reducertypes.NEW_GAME_TABS.LAST ? colors.white : colors.green,
                             borderColor: colors.green, borderWidth: 1,
                         }}
-                        onPress={() => this.switchTab(1)}>
+                        onPress={() => this.switchTab(reducertypes.NEW_GAME_TABS.READY)}>
                         即将开放
                     </Button>
                 </View>
@@ -69,7 +69,7 @@ class NewGameComponent extends Component {
                 <ViewPagerAndroid
                     ref={viewPager => { this.viewPage = viewPager; }}
                     removeClippedSubviews={false}
-                    initialPage={this.state.pageIndex}
+                    initialPage={this.props.selectedTab == reducertypes.NEW_GAME_TABS.LAST ? 0 : 1}
                     style={{ flex: 1 }}
                     onPageSelected={this.onPageSelected.bind(this)}
                     ref={viewPager => { this.viewPage = viewPager; }}>
@@ -77,24 +77,24 @@ class NewGameComponent extends Component {
                         <LastGameComponent navigator={this.props.navigator} />
                     </View>
                     <View>
-                        <ReadyGameComponent />
+                        <ReadyGameComponent navigator={this.props.navigator}/>
                     </View>
                 </ViewPagerAndroid>
             </View>
         );
     }
     switchTab(selectedTab) {
-        if (this.state.pageIndex != selectedTab) {
-            this.setState({ pageIndex: selectedTab });
+        // if (this.state.pageIndex != selectedTab) {
+        //     this.setState({ pageIndex: selectedTab });
+        // }
+        this.viewPage.setPage(selectedTab == reducertypes.NEW_GAME_TABS.LAST ? 0 : 1);
+        if (this.props.selectedTab != selectedTab) {
+            this.props.dispatch(switchTitleBarTab(reducertypes.NEW_GAME_SWITCH_TAB, selectedTab));
         }
-        this.viewPage.setPage(selectedTab);
-        // if (reducertypes.NEW_GAME_TABS.READY)
-        //     if (this.props.selectedTab !== selectedTab) {
-        //         this.props.dispatch(switchTitleBarTab(reducertypes.NEW_GAME_SWITCH_TAB, selectedTab));
-        //     }
     }
     onPageSelected(e) {
-        this.setState({ pageIndex: e.nativeEvent.position });
+        // this.setState({ pageIndex: e.nativeEvent.position });
+        this.switchTab(e.nativeEvent.position == 0 ? reducertypes.NEW_GAME_TABS.LAST :reducertypes.NEW_GAME_TABS.READY);
     }
 }
 function select(store) {

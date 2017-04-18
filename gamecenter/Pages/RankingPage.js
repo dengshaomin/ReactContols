@@ -115,10 +115,9 @@ class RecommendComponent extends Component {
             this.setState({ pageIndex: selectedTab });
         }
 
-        // if (reducertypes.NEW_GAME_TABS.READY)
-        //     if (this.props.selectedTab !== selectedTab) {
-        //         this.props.dispatch(switchTitleBarTab(reducertypes.NEW_GAME_SWITCH_TAB, selectedTab));
-        //     }
+            // if (this.props.selectedTab !== selectedTab) {
+            //     this.props.dispatch(switchTitleBarTab(reducertypes.NEW_GAME_SWITCH_TAB, selectedTab));
+            // }
     }
     onPageSelected(e) {
         this.setState({ pageIndex: e.nativeEvent.position });

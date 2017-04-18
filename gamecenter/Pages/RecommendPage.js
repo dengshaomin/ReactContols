@@ -32,6 +32,7 @@ export default class RecommendComponent extends Component {
                 <AppToolBar titleCenter='游戏中心' navigator={this.props.navigator} />
                 <ScrollableTabView renderTabBar={() => <DefaultTabBar />} tabBarActiveTextColor={colors.green} tabBarInactiveTextColor={colors.font1}
                     tabBarUnderlineStyle={{ backgroundColor: colors.green, height: 1 }}
+                    scrollWithoutAnimation={false}
                     tabBarTextStyle={{ fontSize: fonts.font14, paddingTop: 20 }}
                     style={{ marginTop: -10 }}
                 >
