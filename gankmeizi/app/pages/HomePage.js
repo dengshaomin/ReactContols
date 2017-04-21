@@ -15,7 +15,6 @@ import GankListComp from './comppages/GankListComp';
 import { switchTitleBarTab } from '../actions/titleBarTab';
 import { COMMON_BACKGROUND_COLOR } from '../GlobalConst';
 
-
 class HomePage extends Component {
 
   constructor(props) {

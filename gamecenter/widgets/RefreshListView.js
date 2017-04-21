@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component,PureComponent } from 'react';
 import {
   StyleSheet,
   ListView,
@@ -14,8 +14,8 @@ import OvalButtonComp from '../widgets/OvalButtonComp.js'
 import * as GlobalConst from '../GlobalConst.js'
 import LongGameItem from '../widgets/LongGameItem.js'
 import AndroidImage from '../widgets/AndroidImage.js'
-
-export default class RefreshListViewComponent extends Component {
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+export default class RefreshListViewComponent extends PureComponent {
   constructor(props) {
     super(props);
     this.isLoadMore = true;
@@ -35,27 +35,25 @@ export default class RefreshListViewComponent extends Component {
     this._onRetry.bind(this);
     this._footerView.bind(this);
     // this._hasMoreData.bind(this);
+    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
   }
 
   componentDidMount() {
-    let th = this;
-    // this.timer = setTimeout(() => {
-    //   if (this.props.onRefresh != null)
-    //     this.props.onRefresh(this.pageIndex);
-    // }, 500);
+    InteractionManager.runAfterInteractions(() => {
+      this.props.onRefresh(this.pageIndex);
+    });
   }
 
-  // shouldComponentUpdate(nextProps, nextState) {
-
-  // }
+  shouldComponentUpdate(nextProps, nextState) {
+  }
 
   componentDidUpdate(prevProps, prevState) {
     // if (pageIndex == 1 && dataSourceSize != 0) { dataSourceSize = 0; } else {
     //   dataSourceSize = this.props.dataSource._dataBlob.s1.length;
     // }
-    if (this.props.dataSource != null && this.props.dataSource._dataBlob != null && this.props.dataSource._dataBlob.s1 != null) {
-      this.dataSourceSize = this.props.dataSource._dataBlob.s1.length;
-    }
+    // if (this.props.dataSource != null && this.props.dataSource._dataBlob != null && this.props.dataSource._dataBlob.s1 != null) {
+    //   this.dataSourceSize = this.props.dataSource._dataBlob.s1.length;
+    // }
     // hasMoreData = this._hasMoreData();
     // lastDataSourceSize = dataSourceSize;
     if (this.state.loadingStatu != (this.props.loadingStatu == null ? types.loadingStatu.LOADING : this.props.loadingStatu)) {
@@ -75,6 +73,7 @@ export default class RefreshListViewComponent extends Component {
           renderRow={this._renderRow.bind(this)}
           onEndReachedThreshold={30}
           pageSize={10}
+          initialListSize={5}
           // scrollRenderAheadDistance={500}
           removeClippedSubviews={true}
           onEndReached={this.isLoadMore ? this._onLoadMore.bind(this) : null}
