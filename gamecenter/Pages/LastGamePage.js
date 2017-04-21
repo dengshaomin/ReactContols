@@ -22,8 +22,6 @@ import GameService from '../network/GameService.js'
 import * as GlobalConst from '../GlobalConst.js'
 import LongGameItem from '../widgets/LongGameItem.js'
 import * as Routes from './Routes.js'
-var currentPage = 1;
-var _dataSource = new Array();
 export default class LastGameComponent extends Component {
     constructor(props) {
         super(props);
@@ -34,6 +32,8 @@ export default class LastGameComponent extends Component {
             }),
             loadingStatu: types.ListViewStatus.LOADING,
         }
+        this.currentPage = 1;
+        this._dataSource = new Array();
     }
 
     componentDidMount() {
@@ -54,16 +54,16 @@ export default class LastGameComponent extends Component {
         </View>);
     }
     _onLoadMore(pageIndex) {
-        currentPage = pageIndex;
+        this.currentPage = pageIndex;
         this._request();
     }
     _onRefresh(pageIndex) {
-        currentPage = pageIndex;
+        this.currentPage = pageIndex;
         this._request();
     }
-    _request() {
+    async _request() {
         const getPromise = GameService.getPromise('http://gamecenter.iqiyi.com/gamecenter/newapps',
-            { page: currentPage, size: GlobalConst.PAGE_SIZE, user_id: '' });
+            { page: this.currentPage, size: GlobalConst.PAGE_SIZE, user_id: '' });
         getPromise.then((response) => {
             if (response.ok) {
                 return response.json();
@@ -79,9 +79,9 @@ export default class LastGameComponent extends Component {
     }
     _callback(type, json) {
         if (type == types.NetStatu.SUCCESS) {
-            if (currentPage == 1) _dataSource = [];
-            _dataSource.push(...json.list);
-            this.setState({ title: json.title, dataSource: this.state.dataSource.cloneWithRows(_dataSource), loadingStatu: types.ListViewStatus.FINISH });
+            if (this.currentPage == 1) this._dataSource = [];
+            this._dataSource.push(...json.list);
+            this.setState({ title: json.title, dataSource: this.state.dataSource.cloneWithRows(this._dataSource), loadingStatu: types.ListViewStatus.FINISH });
         } else if (type == types.NetStatu.ERROR) {
             this.setState({ loadingStatu: types.ListViewStatus.ERROR });
         }

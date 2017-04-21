@@ -26,12 +26,11 @@ import ReadyGamePage from './ReadyGamePage.js'
 import RecommendPage from './RecommendPage.js'
 import MinePage from './MinePage.js'
 import WeixinTabBar from '../widgets/WeixinTabBar.js'
+import ButtonTabBar from '../widgets/ButtonTabBar.js'
 export default class RecommendComponent extends Component {
     constructor(props, context) {
         super(props, context);
         this.tabNames = ['最新上线', '即将开放'];
-        this.tabIconNames = ['', ''];
-        this.unTabIconNames = ['', ''];
     }
 
 
@@ -39,11 +38,11 @@ export default class RecommendComponent extends Component {
         return (
             <View style={{ flex: 1 }}>
                 <ScrollableTabView
-                    renderTabBar={() => <WeixinTabBar tabNames={this.tabNames} tabIconNames={this.tabIconNames} unTabIconNames={this.unTabIconNames}
-                         />}
+                    renderTabBar={() => <ButtonTabBar tabNames={this.tabNames}
+                    />}
                 >
-                    <LastGamePage/>
-                    <ReadyGamePage/>
+                    <LastGamePage />
+                    <ReadyGamePage />
                 </ScrollableTabView>
             </View >
         );

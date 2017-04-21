@@ -1,4 +1,4 @@
-import React, { Component,PureComponent } from 'react';
+import React, { Component, PureComponent } from 'react';
 import {
   StyleSheet,
   ListView,
@@ -43,9 +43,9 @@ export default class RefreshListViewComponent extends PureComponent {
       this.props.onRefresh(this.pageIndex);
     });
   }
-
-  shouldComponentUpdate(nextProps, nextState) {
-  }
+  /**return true 触发render */
+  // shouldComponentUpdate(nextProps, nextState) {
+  // }
 
   componentDidUpdate(prevProps, prevState) {
     // if (pageIndex == 1 && dataSourceSize != 0) { dataSourceSize = 0; } else {
@@ -56,11 +56,25 @@ export default class RefreshListViewComponent extends PureComponent {
     // }
     // hasMoreData = this._hasMoreData();
     // lastDataSourceSize = dataSourceSize;
-    if (this.state.loadingStatu != (this.props.loadingStatu == null ? types.loadingStatu.LOADING : this.props.loadingStatu)) {
-      this.setState({ loadingStatu: this.props.loadingStatu });
+    if (this.state.loadingStatu != (this.props.loadingStatu == null ? types.ListViewStatus.LOADING : this.props.loadingStatu)) {
+      // if (this.prevProps.loadingStatu == types.ListViewStatus.FINISH) {
+
+      // }
+      InteractionManager.runAfterInteractions(() => {
+        this.setState({ loadingStatu: this.props.loadingStatu });
+      });
     }
   }
   render() {
+    if (this.props != null && this.props.dataSource != null && this.props.dataSource._dataBlob != null) {
+      if (this.props.dataSource._dataBlob.s1.length == this.dataSourceSize) {
+        this.lastDataSourceSize = this.dataSourceSize;
+      } else {
+        this.lastDataSourceSize = this.dataSourceSize;
+        dataSourceSize = this.props.dataSource._dataBlob.s1.length;
+      }
+      // this.props.dataSource._dataBlob.s1.length
+    }
     let contentView;
     if (this.state.loadingStatu === types.ListViewStatus.LOADING) {
       contentView = this._renderLoadingView();
@@ -163,13 +177,14 @@ export default class RefreshListViewComponent extends PureComponent {
   _onRefresh() {
     // if (this.state.loadingStatu == types.ListViewStatus.LOADING) {
     //   return;
-    // }
+    // }  
     this.pageIndex = 1;
     this.setState({ loadingStatu: types.ListViewStatus.LOADING });
-    this.timer = setTimeout(() => {
+    InteractionManager.runAfterInteractions(() => {
       if (this.props.onRefresh != null)
         this.props.onRefresh(this.pageIndex);
-    }, 500);
+    }
+    );
   }
 
   /**
@@ -185,7 +200,7 @@ export default class RefreshListViewComponent extends PureComponent {
     // if (pageIndex == 1) { pageIndex = 2 } else {
     this.pageIndex = this.dataSourceSize / GlobalConst.PAGE_SIZE + 1;
     // }
-    this.setState({ loadingStatu: types.ListViewStatus.LOADINGMORE });
+    // this.setState({ loadingStatu: types.ListViewStatus.LOADINGMORE });
     // 延迟1秒再调用数据
     this.props.onLoadMore(this.pageIndex);
   }

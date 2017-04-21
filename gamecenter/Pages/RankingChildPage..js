@@ -44,7 +44,7 @@ export default class RankingChildComponent extends Component {
         return (
             <View style={{ flex: 1 }}>
                 <RefreshListViewComponent dataSource={this.state.dataSource} loadingStatu={this.state.loadingStatu} renderRow={this._renderItem.bind(this)}
-                     onRefresh={this._onRefresh.bind(this)} onLoadMore={this._onLoadMore.bind(this)} />
+                    onRefresh={this._onRefresh.bind(this)} onLoadMore={this._onLoadMore.bind(this)} />
             </View>
         );
     }
@@ -56,7 +56,7 @@ export default class RankingChildComponent extends Component {
         this.currentPage = pageIndex;
         this._request();
     }
-    _request() {
+    async _request() {
         const getPromise = GameService.getPromise('http://gamecenter.iqiyi.com/gamecenter/top/rankNew',
             { no: this.currentPage, size: GlobalConst.PAGE_SIZE, type: this.type });
         getPromise.then((response) => {

@@ -61,7 +61,7 @@ export default class ReadyGameComponent extends Component {
         this._request();
 
     }
-    _request() {
+    async _request() {
         const getPromise = GameService.getPromise('http://gamecenter.iqiyi.com/gamecenter/readyapps',
             { page: currentPage, size: GlobalConst.PAGE_SIZE, user_id: '' });
         getPromise.then((response) => {

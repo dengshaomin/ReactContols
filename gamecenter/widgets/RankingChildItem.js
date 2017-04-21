@@ -27,7 +27,7 @@ export default class LongGameItem extends Component {
         return (
             <CommonTouchableComp onPress={() => { this.props.onPress == null ? null : this.props.onPress(this.props.index) }}>
                 <View style={stylesthis.rootView} >
-                    <Text style={{ marginLeft: 0,marginRight:10, fontSize: 20, fontStyle: 'italic' }}>{this.props.index}</Text>
+                    <Text style={{ marginLeft: 0, marginRight: 0, width: 30, fontSize: 20, fontStyle: 'italic', textAlign: 'center' }}>{this.props.index}</Text>
                     <AndroidImage style={styles.gameIcon} dimg={'ppsgame_default_icon'}
                         img={data.icon}
                     />
@@ -60,7 +60,8 @@ const stylesthis = StyleSheet.create({
     rootView: {
         flexDirection: 'row',
         alignItems: 'center',
-        padding: 10,
+        paddingTop:10,
+        paddingRight:10,
         backgroundColor: colors.white,
     }
 

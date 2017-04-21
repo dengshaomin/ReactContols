@@ -24,9 +24,6 @@ import LongGameItem from '../widgets/LongGameItem.js'
 import LastGameComponent from './LastGamePage.js'
 import ReadyGameComponent from './ReadyGamePage'
 import * as Routes from './Routes.js'
-var currentPage = 1;
-var _dataSource = new Array();
-let pages = [];
 class NewGameComponent extends Component {
     constructor(props) {
         super(props);
@@ -34,6 +31,8 @@ class NewGameComponent extends Component {
             pageIndex: 0
         }
         this.position = 0;
+        this.currentPage = 1;
+        this._dataSource = new Array();
     }
 
     componentDidMount() {
