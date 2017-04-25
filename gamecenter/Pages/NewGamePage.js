@@ -24,7 +24,11 @@ import LongGameItem from '../widgets/LongGameItem.js'
 import LastGameComponent from './LastGamePage.js'
 import ReadyGameComponent from './ReadyGamePage'
 import * as Routes from './Routes.js'
+import { observable, action, computed } from 'mobx';
+import { observer } from 'mobx-react/native';
+
 class NewGameComponent extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
@@ -80,7 +84,7 @@ class NewGameComponent extends Component {
                     <View >
                         <LastGameComponent navigator={this.props.navigator} />
                     </View>
-                    <View>
+                    <View >
                         <ReadyGameComponent navigator={this.props.navigator} />
                     </View>
                 </ViewPagerAndroid>

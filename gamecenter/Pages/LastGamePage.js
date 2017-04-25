@@ -64,7 +64,7 @@ export default class LastGameComponent extends Component {
     async _request() {
         const getPromise = GameService.getPromise('http://gamecenter.iqiyi.com/gamecenter/newapps',
             { page: this.currentPage, size: GlobalConst.PAGE_SIZE, user_id: '' });
-        getPromise.then((response) => {
+        await getPromise.then((response) => {
             if (response.ok) {
                 return response.json();
             } else {

@@ -60,8 +60,9 @@ const stylesthis = StyleSheet.create({
     rootView: {
         flexDirection: 'row',
         alignItems: 'center',
-        paddingTop:10,
-        paddingRight:10,
+        paddingTop: 10,
+        paddingRight: 10,
+        paddingBottom: 10,
         backgroundColor: colors.white,
     }
 
