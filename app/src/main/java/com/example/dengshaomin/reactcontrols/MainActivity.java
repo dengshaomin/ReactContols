@@ -25,6 +25,9 @@ public class MainActivity extends Activity implements DefaultHardwareBackBtnHand
                     .setBundleAssetName("index.android.bundle")
                     .setJSMainModuleName("index.android")
                     .addPackage(new MainReactPackage())
+                    .addPackage(new AppReactPackage())
+                    .addPackage(new NativeWebViewPackage())
+                    .addPackage(new NativeButtontPackage())
                     .setUseDeveloperSupport(BuildConfig.DEBUG)
                     .setInitialLifecycleState(LifecycleState.RESUMED)
                     .build();
@@ -33,7 +36,6 @@ public class MainActivity extends Activity implements DefaultHardwareBackBtnHand
         } catch (Exception e) {
             Log.e(this.getClass().getName(), e.getCause().getMessage());
         }
-
     }
 
     @Override
