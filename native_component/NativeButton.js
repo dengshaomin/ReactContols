@@ -3,7 +3,6 @@
 import React,{ PropTypes } from 'react';
 import { requireNativeComponent } from 'react-native';
 
-
 var iface = {
     name: 'NativeButtonView',
     propTypes: {
