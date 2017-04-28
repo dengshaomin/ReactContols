@@ -30,6 +30,8 @@ import NativeButton from '../../native_component/NativeButtonComponent.js';
 import TimerComponent from '../../widgets/Timer.js'
 import AsycnComponent from '../../widgets/async&await&promise.js'
 import PromiseComponent from '../../widgets/promise.js'
+import SelectedComponent from '../mobx/6-list-and-global-computed/selected.js'
+import AnimateComponent from '../../animates/AnimateComponent.js'
 const f = () => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
@@ -57,16 +59,7 @@ export default class TestPage extends React.Component {
     //   });;
     return (
       <View style={{ flex: 1 }}>
-        <SwipeMenuListView style={{ flex: 1 }} array={["Java", "C", "C++", "C#", "Python", "PHP"
-          , "Visual Basic .NET", "JavaScript", "Assembly Language", "Ruby", "Perl"
-          , "Delphi", "Visual Basic", "Swift", "MATLAB", "Pascal"]}
-          onDelete={(event) => {
-            ToastAndroid.show(event.nativeEvent.language, ToastAndroid.SHORT);
-          }
-          } />
-        <NativeViewComponent style={{ flex: 1 }} />
-        <NativeButton style={{ flex: 1 }} onClick={(event) => { console.log(JSON.parse(event.nativeEvent.nativebuttonclick)) }} />
-        <PromiseComponent />
+        <AnimateComponent/>
       </View>
     );
   }

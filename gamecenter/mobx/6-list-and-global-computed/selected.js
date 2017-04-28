@@ -1,5 +1,8 @@
 /**
  * Created by tdzl2003 on 1/20/17.
+ * 有返回值是用computed 
+ * 无返回值是用action
+ * 
  */
 import React, { PropTypes, Component } from 'react';
 
@@ -124,7 +127,7 @@ class Info extends React.Component {
   render() {
     const { cart } = this.props;
     return (<Text>
-      SelectItem: {cart.selectedItem.name}
+      SelectItem: {cart.selectedItem == null ? '' : cart.selectedItem.name}
     </Text>);
   }
 }
