@@ -4,267 +4,191 @@
         "map": [
             {
                 "to": {
-                    "startLine": 16,
+                    "startLine": 4,
                     "startColumn": 4,
-                    "startOffset": 1660,
-                    "endColumn": 63,
-                    "endOffset": 1719
+                    "startOffset": 662,
+                    "endColumn": 44,
+                    "endOffset": 702
                 },
                 "from": {
                     "file": "D:\\AndroidStudioProjects\\ReactControls\\library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
                     "position": {
-                        "startLine": 16,
+                        "startLine": 4,
                         "startColumn": 4,
-                        "startOffset": 1660,
-                        "endColumn": 63,
-                        "endOffset": 1719
+                        "startOffset": 662,
+                        "endColumn": 44,
+                        "endOffset": 702
                     }
                 }
             },
             {
                 "to": {
-                    "startLine": 17,
+                    "startLine": 5,
                     "startColumn": 4,
-                    "startOffset": 1724,
-                    "endColumn": 63,
-                    "endOffset": 1783
+                    "startOffset": 707,
+                    "endColumn": 57,
+                    "endOffset": 760
                 },
                 "from": {
                     "file": "D:\\AndroidStudioProjects\\ReactControls\\library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
                     "position": {
-                        "startLine": 17,
+                        "startLine": 5,
                         "startColumn": 4,
-                        "startOffset": 1724,
-                        "endColumn": 63,
-                        "endOffset": 1783
+                        "startOffset": 707,
+                        "endColumn": 57,
+                        "endOffset": 760
                     }
                 }
             },
             {
                 "to": {
-                    "startLine": 18,
+                    "startLine": 6,
                     "startColumn": 4,
-                    "startOffset": 1788,
-                    "endColumn": 54,
-                    "endOffset": 1838
+                    "startOffset": 765,
+                    "endColumn": 62,
+                    "endOffset": 823
                 },
                 "from": {
                     "file": "D:\\AndroidStudioProjects\\ReactControls\\library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
                     "position": {
-                        "startLine": 18,
+                        "startLine": 6,
                         "startColumn": 4,
-                        "startOffset": 1788,
-                        "endColumn": 54,
-                        "endOffset": 1838
+                        "startOffset": 765,
+                        "endColumn": 62,
+                        "endOffset": 823
                     }
                 }
             },
             {
                 "to": {
-                    "startLine": 19,
+                    "startLine": 7,
                     "startColumn": 4,
-                    "startOffset": 1843,
+                    "startOffset": 828,
+                    "endColumn": 61,
+                    "endOffset": 885
+                },
+                "from": {
+                    "file": "D:\\AndroidStudioProjects\\ReactControls\\library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 4,
+                        "startOffset": 828,
+                        "endColumn": 61,
+                        "endOffset": 885
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 8,
+                    "startColumn": 4,
+                    "startOffset": 890,
                     "endColumn": 56,
-                    "endOffset": 1895
+                    "endOffset": 942
                 },
                 "from": {
                     "file": "D:\\AndroidStudioProjects\\ReactControls\\library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
                     "position": {
-                        "startLine": 19,
+                        "startLine": 8,
                         "startColumn": 4,
-                        "startOffset": 1843,
+                        "startOffset": 890,
                         "endColumn": 56,
-                        "endOffset": 1895
+                        "endOffset": 942
                     }
                 }
             },
             {
                 "to": {
-                    "startLine": 20,
+                    "startLine": 9,
                     "startColumn": 4,
-                    "startOffset": 1900,
-                    "endColumn": 54,
-                    "endOffset": 1950
+                    "startOffset": 947,
+                    "endColumn": 78,
+                    "endOffset": 1021
                 },
                 "from": {
                     "file": "D:\\AndroidStudioProjects\\ReactControls\\library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
                     "position": {
-                        "startLine": 20,
+                        "startLine": 9,
                         "startColumn": 4,
-                        "startOffset": 1900,
-                        "endColumn": 54,
-                        "endOffset": 1950
+                        "startOffset": 947,
+                        "endColumn": 78,
+                        "endOffset": 1021
                     }
                 }
             },
             {
                 "to": {
-                    "startLine": 21,
+                    "startLine": 10,
                     "startColumn": 4,
-                    "startOffset": 1955,
-                    "endColumn": 37,
-                    "endOffset": 1988
+                    "startOffset": 1026,
+                    "endColumn": 62,
+                    "endOffset": 1084
                 },
                 "from": {
                     "file": "D:\\AndroidStudioProjects\\ReactControls\\library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
                     "position": {
-                        "startLine": 21,
+                        "startLine": 10,
                         "startColumn": 4,
-                        "startOffset": 1955,
-                        "endColumn": 37,
-                        "endOffset": 1988
+                        "startOffset": 1026,
+                        "endColumn": 62,
+                        "endOffset": 1084
                     }
                 }
             },
             {
                 "to": {
-                    "startLine": 22,
+                    "startLine": 11,
                     "startColumn": 4,
-                    "startOffset": 1993,
-                    "endColumn": 39,
-                    "endOffset": 2028
+                    "startOffset": 1089,
+                    "endColumn": 59,
+                    "endOffset": 1144
                 },
                 "from": {
                     "file": "D:\\AndroidStudioProjects\\ReactControls\\library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
                     "position": {
-                        "startLine": 22,
+                        "startLine": 11,
                         "startColumn": 4,
-                        "startOffset": 1993,
-                        "endColumn": 39,
-                        "endOffset": 2028
+                        "startOffset": 1089,
+                        "endColumn": 59,
+                        "endOffset": 1144
                     }
                 }
             },
             {
                 "to": {
-                    "startLine": 23,
+                    "startLine": 12,
                     "startColumn": 4,
-                    "startOffset": 2033,
-                    "endColumn": 36,
-                    "endOffset": 2065
+                    "startOffset": 1149,
+                    "endColumn": 74,
+                    "endOffset": 1219
                 },
                 "from": {
                     "file": "D:\\AndroidStudioProjects\\ReactControls\\library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
                     "position": {
-                        "startLine": 23,
+                        "startLine": 12,
                         "startColumn": 4,
-                        "startOffset": 2033,
-                        "endColumn": 36,
-                        "endOffset": 2065
+                        "startOffset": 1149,
+                        "endColumn": 74,
+                        "endOffset": 1219
                     }
                 }
             },
             {
                 "to": {
-                    "startLine": 24,
+                    "startLine": 13,
                     "startColumn": 4,
-                    "startOffset": 2070,
-                    "endColumn": 101,
-                    "endOffset": 2167
+                    "startOffset": 1224,
+                    "endColumn": 61,
+                    "endOffset": 1281
                 },
                 "from": {
                     "file": "D:\\AndroidStudioProjects\\ReactControls\\library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
                     "position": {
-                        "startLine": 24,
+                        "startLine": 13,
                         "startColumn": 4,
-                        "startOffset": 2070,
-                        "endColumn": 101,
-                        "endOffset": 2167
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 25,
-                    "startColumn": 4,
-                    "startOffset": 2172,
-                    "endColumn": 113,
-                    "endOffset": 2281
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\ReactControls\\library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
-                    "position": {
-                        "startLine": 25,
-                        "startColumn": 4,
-                        "startOffset": 2172,
-                        "endColumn": 113,
-                        "endOffset": 2281
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 26,
-                    "startColumn": 4,
-                    "startOffset": 2286,
-                    "endColumn": 107,
-                    "endOffset": 2389
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\ReactControls\\library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
-                    "position": {
-                        "startLine": 26,
-                        "startColumn": 4,
-                        "startOffset": 2286,
-                        "endColumn": 107,
-                        "endOffset": 2389
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 27,
-                    "startColumn": 4,
-                    "startOffset": 2394,
-                    "endColumn": 71,
-                    "endOffset": 2461
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\ReactControls\\library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
-                    "position": {
-                        "startLine": 27,
-                        "startColumn": 4,
-                        "startOffset": 2394,
-                        "endColumn": 71,
-                        "endOffset": 2461
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 28,
-                    "startColumn": 4,
-                    "startOffset": 2466,
-                    "endColumn": 69,
-                    "endOffset": 2531
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\ReactControls\\library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
-                    "position": {
-                        "startLine": 28,
-                        "startColumn": 4,
-                        "startOffset": 2466,
-                        "endColumn": 69,
-                        "endOffset": 2531
-                    }
-                }
-            },
-            {
-                "to": {
-                    "startLine": 29,
-                    "startColumn": 4,
-                    "startOffset": 2536,
-                    "endColumn": 77,
-                    "endOffset": 2609
-                },
-                "from": {
-                    "file": "D:\\AndroidStudioProjects\\ReactControls\\library\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
-                    "position": {
-                        "startLine": 29,
-                        "startColumn": 4,
-                        "startOffset": 2536,
-                        "endColumn": 77,
-                        "endOffset": 2609
+                        "startOffset": 1224,
+                        "endColumn": 61,
+                        "endOffset": 1281
                     }
                 }
             }

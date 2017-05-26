@@ -7,21 +7,4 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.example.dengshaomin.reactcontrols.MainActivity">
-
-    <com.handmark.pulltorefresh.library.PullToRefreshReactView
-        android:id="@+id/pull_refresh_list"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="#00ff00"
-        ptr:ptrAnimationStyle="flip"
-        ptr:ptrMode="both">
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:padding="8dp"
-            android:text="111111"
-            android:textSize="16sp"/>
-    </com.handmark.pulltorefresh.library.PullToRefreshReactView>
-
 </LinearLayout>

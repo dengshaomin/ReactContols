@@ -32,6 +32,7 @@ import AsycnComponent from '../../widgets/async&await&promise.js'
 import PromiseComponent from '../../widgets/promise.js'
 import SelectedComponent from '../mobx/6-list-and-global-computed/selected.js'
 import AnimateComponent from '../../animates/AnimateComponent.js'
+import RefreshComponent  from '../../native_component/NativeUltraPullRefreshComponent.js';
 const f = () => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
@@ -59,7 +60,7 @@ export default class TestPage extends React.Component {
     //   });;
     return (
       <View style={{ flex: 1 }}>
-        <AnimateComponent/>
+        <RefreshComponent />
       </View>
     );
   }
