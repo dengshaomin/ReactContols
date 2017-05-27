@@ -13,7 +13,7 @@ import fonts from '../values/fonts';
 import styles from '../values/styles'
 import * as types from '../values/types'
 import * as reducertypes from '../actions/types.js'
-import RefreshListViewComponent from '../widgets/RefreshListView'
+import RefreshListViewComponent from '../widgets/UltraRefreshListView.js'
 import { switchTitleBarTab } from '../actions/changeTab'
 import Button from 'react-native-button'
 import { connect } from 'react-redux'

@@ -32,7 +32,8 @@ import AsycnComponent from '../../widgets/async&await&promise.js'
 import PromiseComponent from '../../widgets/promise.js'
 import SelectedComponent from '../mobx/6-list-and-global-computed/selected.js'
 import AnimateComponent from '../../animates/AnimateComponent.js'
-import RefreshComponent  from '../../native_component/NativeUltraPullRefreshComponent.js';
+// import RefreshComponent  from '../../native_component/NativeUltraPullRefreshComponent.js';
+import RefreshComponent  from './RefreshPage.js';
 const f = () => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
