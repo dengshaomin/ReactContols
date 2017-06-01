@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { Component,PureComponent } from 'react';
 import {
   StyleSheet,
   ListView,
@@ -15,17 +15,7 @@ import * as GlobalConst from '../GlobalConst.js'
 import LongGameItem from '../widgets/LongGameItem.js'
 import AndroidImage from '../widgets/AndroidImage.js'
 import PureRenderMixin from 'react-addons-pure-render-mixin';
-export default class RefreshListViewComponent extends Component {
-
-  /**
-   * 生命周期
-   * componentwillReceiveProps
-  shouldComponentUpdate
-  componentWillUpdate
-  render
-  componentDidUpdate */
-
-
+export default class RefreshListViewComponent extends PureComponent {
   constructor(props) {
     super(props);
     this.isLoadMore = true;
@@ -45,8 +35,7 @@ export default class RefreshListViewComponent extends Component {
     this._onRetry.bind(this);
     this._footerView.bind(this);
     // this._hasMoreData.bind(this);
-    this._hasMoreData = true;
-    this._loadingStatu = types.ListViewStatus.LOADING;
+    this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
   }
 
   componentDidMount() {
@@ -54,50 +43,28 @@ export default class RefreshListViewComponent extends Component {
       this.props.onRefresh(this.pageIndex);
     });
   }
-  /**return true 触发render */
+
   shouldComponentUpdate(nextProps, nextState) {
-    if (nextProps != null && nextProps.dataSource != null && nextProps.dataSource._dataBlob != null) {
-      this.lastDataSourceSize = this.dataSourceSize;
-      this.dataSourceSize = nextProps.dataSource._dataBlob.s1.length;
-    }
-    if (nextProps.loadingStatu == types.ListViewStatus.LOADING) {
-      this.dataSourceSize = 0;
-      this._hasMoreData = true;
-    } else {
-      if (nextProps.hasMoreData) {
-        this._hasMoreData = true;
-      } else if (this.dataSourceSize == this.lastDataSourceSize || (nextProps.hasMoreData != null && !nextProps.hasMoreData)) {
-        this._hasMoreData = false;
-      } else {
-        if (this.dataSourceSize % GlobalConst.PAGE_SIZE != 0) {
-          this._hasMoreData = false;
-        } else {
-          this._hasMoreData = true;
-        }
-      }
-    }
-    const render = nextProps.loadingStatu !== this._loadingStatu;
-    this._loadingStatu = nextProps.loadingStatu;
-    return render;
   }
-  componentWillUpdate(nextProps, nextState) {
-    // componentDidUpdate(prevProps, prevState) {
-    // if (nextProps.loadingStatu !== this.props.loadingStatu) {
-    //   this.setState({ loadingStatu: nextProps.loadingStatu });
+
+  componentDidUpdate(prevProps, prevState) {
+    // if (pageIndex == 1 && dataSourceSize != 0) { dataSourceSize = 0; } else {
+    //   dataSourceSize = this.props.dataSource._dataBlob.s1.length;
     // }
-    // console.log(this.state.loadingStatu);
-    // if (this.props != null && this.props.dataSource != null && this.props.dataSource._dataBlob != null) {
-    //   console.log(this.props.dataSource._dataBlob.s1.length);
+    // if (this.props.dataSource != null && this.props.dataSource._dataBlob != null && this.props.dataSource._dataBlob.s1 != null) {
+    //   this.dataSourceSize = this.props.dataSource._dataBlob.s1.length;
     // }
-  }
-  /**render 之后调用 */
-  componentDidUpdate(nextProps, nextState) {
+    // hasMoreData = this._hasMoreData();
+    // lastDataSourceSize = dataSourceSize;
+    if (this.state.loadingStatu != (this.props.loadingStatu == null ? types.loadingStatu.LOADING : this.props.loadingStatu)) {
+      this.setState({ loadingStatu: this.props.loadingStatu });
+    }
   }
   render() {
     let contentView;
-    if (this._loadingStatu === types.ListViewStatus.LOADING) {
+    if (this.state.loadingStatu === types.ListViewStatus.LOADING) {
       contentView = this._renderLoadingView();
-    } else if (this._loadingStatu === types.ListViewStatus.ERROR && this.pageIndex != 1) {
+    } else if (this.state.loadingStatu === types.ListViewStatus.ERROR && this.pageIndex != 1) {
       contentView = this._renderErrorView();
     } else {
       contentView = (
@@ -116,7 +83,7 @@ export default class RefreshListViewComponent extends Component {
           contentContainerStyle={this.props.contentContainerStyle == null ? null : this.props.contentContainerStyle}
           refreshControl={
             <RefreshControl
-              refreshing={this._loadingStatu == types.ListViewStatus.LOADING ? true : false}
+              refreshing={this.state.loadingStatu == types.ListViewStatus.LOADING ? true : false}
               onRefresh={this._onRefresh.bind(this)}
               tintColor='#AAAAAA'
               title='下拉刷新'
@@ -127,6 +94,24 @@ export default class RefreshListViewComponent extends Component {
     return (
       contentView
     );
+  }
+  _hasMoreData() {
+    if (this.props.dataSource != null && this.props.dataSource._dataBlob != null && this.props.dataSource._dataBlob.s1 != null) {
+      this.dataSourceSize = this.props.dataSource._dataBlob.s1.length;
+    }
+    if (this.state.loadingStatu == types.ListViewStatus.LOADING) {
+      this.dataSourceSize = 0;
+      return true;
+    } else {
+      if (this.props.hasMoreData != null) {
+        return this.props.hasMoreData
+      } else {
+        if (this.dataSourceSize == this.lastDataSourceSize && this.dataSourceSize != 0) {
+          return false;
+        }
+        return (this.props.dataSource == null || (this.dataSourceSize % GlobalConst.PAGE_SIZE == 0)) ? true : false;
+      };
+    }
   }
   _renderRow(data, sectionID, rowID) {
     return this.props.renderRow(data, rowID);
@@ -147,7 +132,7 @@ export default class RefreshListViewComponent extends Component {
   }
 
   _renderErrorView() {
-    if (this._hasMoreData) {
+    if (this._hasMoreData()) {
       return null;
     }
     return (
@@ -178,38 +163,34 @@ export default class RefreshListViewComponent extends Component {
   _onRefresh() {
     // if (this.state.loadingStatu == types.ListViewStatus.LOADING) {
     //   return;
-    // }  
+    // }
     this.pageIndex = 1;
-    this._loadingStatu = types.ListViewStatus.LOADING;
     this.setState({ loadingStatu: types.ListViewStatus.LOADING });
-    InteractionManager.runAfterInteractions(() => {
+    this.timer = setTimeout(() => {
       if (this.props.onRefresh != null)
         this.props.onRefresh(this.pageIndex);
-    }
-    );
+    }, 500);
   }
 
   /**
    * 加载更多
    */
   _onLoadMore() {
-    if (this._loadingStatu == types.ListViewStatus.LOADINGMORE) {
+    if (this.state.loadingStatu == types.ListViewStatus.LOADINGMORE) {
       return;
     }
-    if (!this._hasMoreData) {
+    if (!this._hasMoreData()) {
       return;
     }
     // if (pageIndex == 1) { pageIndex = 2 } else {
     this.pageIndex = this.dataSourceSize / GlobalConst.PAGE_SIZE + 1;
     // }
-    this._loadingStatu = types.ListViewStatus.LOADINGMORE;
-    // this.setState({ loadingStatu: types.ListViewStatus.LOADINGMORE });
-
+    this.setState({ loadingStatu: types.ListViewStatus.LOADINGMORE });
     // 延迟1秒再调用数据
     this.props.onLoadMore(this.pageIndex);
   }
   _footerView() {
-    if (!this._hasMoreData) return (
+    if (!this._hasMoreData()) return (
       <View style={{ height: 40, flexDirection: 'row', justifyContent: 'center' }}>
         <Text style={{ marginLeft: 5, textAlign: 'center', textAlignVertical: 'center' }}>
           没有更多数据...
