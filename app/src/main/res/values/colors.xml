@@ -1,6 +1,232 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+
+    <color name="common_bg">#f0f0f0</color>
+    <color name="ppsgame_tab_text_color">#464646</color>
+    <color name="ppsgame_search_recommend">#49a7d0</color>
+    <color name="ppsgame_center_bg">#f6f6f6</color>
+    <color name="ppsgame_center_title">#d3dae7</color>
+    <color name="ppsgame_tab_yellow">#f05b26</color>
+    <color name="ppsgame_tab_black">#242424</color>
+    <color name="ppsgame_tab_dark_green">#0bbe06</color>
+    <color name="ppsgame_tab_dark_green2">#56762c</color>
+    <color name="ppsgame_tab_gray">#949494</color>
+    <color name="ppsgame_tab_white">#ffffff</color>
+    <color name="ppsgame_tab_green">#ff671d</color>
+    <color name="ppsgame_home_line">#d5d5d5</color>
+    <color name="ppsgame_list_item">#f6f6f6</color>
+    <color name="ppsgame_list_divider">#c4c4c4</color>
+    <color name="ppsgame_edit_bg">#dfdfdf</color>
+    <color name="ppsgame_search_edit_bg">#e7e7e7</color>
+    <color name="ppsgame_transparent_bg">#00000000</color>
+    <color name="ppsgame_topic1_bg">#f89458</color>
+    <color name="ppsgame_topic2_bg">#70ba57</color>
+    <color name="ppsgame_topic3_bg">#e15287</color>
+    <color name="ppsgame_topic4_bg">#8fb5f4</color>
+    <color name="ppsgame_popu_background">#902d2d2d</color>
+    <color name="ugc_shallow_black_color">#949494</color>
+    <color name="ppsgame_gallery_selected">#82c600</color>
+    <color name="ppsgame_gallery_unselected">#bababa</color>
+    <color name="ppsgame_album_text_color">#898989</color>
+    <color name="ppsgame_pack_copy_bg">#ff4e00</color>
+    <color name="bottom_navigation_text_color">#F1F1F1</color>
+    <color name="bottom_navigation_back_select_color">#000000</color>
+    <color name="bottom_navigation_back_unselect_color">#ffffff</color>
+    <color name="software_tab_green">#80b041</color>
+	<color name="background_color">#E7E7E7</color>
+    <color name="background_color_internal">#E4E4E4</color>
+	<color name="soft_detail_title_color">#7c7c7c</color>
+    <color name="bottom_bar_text_select">#0bbe06</color>
+    <color name="bottom_bar_text_unselect">#666666</color>
+    <color name="uninstall_select_all_red">#ff3b30</color>
+    <color name="uninstall_select_all_grey">#999999</color>
+    <color name="white">#ffffffff</color>
+    <color name="umeng_top_checked">#608D26</color>
+    <color name="iqiyiwhite">#ffffff</color>
+    <color name="comment_edittext_color">#949494</color>
+    <color name="phone_setting_background_layout_lee">#e7e7e7</color>
+    <color name="transparent">#00000000</color>
+    <color name="comment_see_all">#85c210</color>
+    <color name="a3_text">#949494</color>
+    <color name="text_black">#333333</color>
+    <!-- add for v1.9 -->
+    <drawable name="progress_green">#ff80b042</drawable>
+    <drawable name="progress_yellow">#ffFFFF00</drawable>
+    <drawable name="progress_red">#ffd14b4a</drawable>
+    <drawable name="ppsgame_status_pack">#0bbe06</drawable>
+    <color name="game_center_text_color_1">#333333</color>
+    <color name="game_center_text_color_2">#666666</color>
+    <color name="game_center_text_color_3">#999999</color>
+    <color name="game_center_text_color_4">#0bbe06</color>
+    <color name="game_center_white">#ffffff</color>
+    <color name="game_center_pressed_color">#f0f0f0</color>
+    <color name="game_center_dividing_line_color">#e6e6e6</color>
+    <color name="game_center_me_bg_color">#f0f0f0</color>
+    <color name="game_center_me_sign_out_btn_color">#ff4e00</color>
+
+
+    <color name="game_center_corner_bg_color_1">#fd2500</color>
+    <color name="game_center_corner_bg_color_2">#0bbe06</color>
+    <color name="game_center_corner_bg_color_3">#1180df</color>
+    <color name="game_center_corner_bg_color_4">#fe8900</color>
+    <color name="game_center_corner_bg_color_5">#00a0aa</color>
+    <color name="game_center_corner_bg_color_6">#6738ab</color>
+    <color name="game_center_corner_bg_color_7">#cc2c99</color>
+    <color name="game_center_corner_bg_color_8">#cc2c99</color>
+    <color name="game_center_corner_bg_color_9">#999999</color>
+    <!-- 游戏圈 -->
+    <color name="game_center_group_topic_color">#1ad5ce</color>
+    <color name="game_center_group_info_color">#7f7cff</color>
+
+    <!-- ========Card V3.0+ colors======= -->
+    <color name="card_meta_mask_black_alpha_70">#B3000000</color>
+    <color name="card_meta_mask_black_alpha_50">#80000000</color>
+    <color name="card_poster_mask_black_alpha_40">#66000000</color>
+    <color name="card_orange">#fc4f1e</color>
+    <color name="color_transparent">#00000000</color>
+    <!-- =============================== -->
+
+    <color name="card_operation_text_normal">#949494</color>
+    <color name="card_text_pressed_green">#76ba00</color>
+    <color name="green_mormal">#0bbe06</color>
+    <color name="green_middle">#a5DDFCCB</color>
+    <color name="green_pressed">#477000</color>
+
+    <!-- 横屏下载标题 card 的 文字颜色 -->
+    <color name="card_player_play_count">#777777</color>
+    <!-- 竖屏下载标题 card 的 文字颜色 -->
+    <color name="card_player_episode_title">#9c9c9c</color>
+
+    <color name="default_color_big_add">#d3dae7</color>
+    <color name="default_color_big">#505050</color>
+    <color name="default_color_middle">#505050</color>
+    <color name="default_color_middle_land">#ffffff</color>
+    <color name="default_color_middle2">#7dbd00</color>
+    <!-- 9c9c9c c7c7c7-->
+    <color name="default_color_small">#9c9c9c</color>
+    <color name="default_color_small_land">#ababab</color>
+    <color name="default_color_small_sub">#ffffff</color>
+    <!--90%-->
+    <color name="pinned_head_bg">#Effefefe</color>
+    <color name="page_tab_bg">#fefefe</color>
+
+    <color name="player_comment_color_album_land">#f9f9f9</color>
+    <color name="player_comment_ring_mobile">#56aaf0</color>
+    <color name="player_comment_ring_pc">#7abc00</color>
+    <color name="phone_title_black">#464646</color>
+    <color name="music_top_points">#ff823e</color>
+    <color name="music_top_rank">#949494</color>
+    <color name="phone_detail_grey">#777777</color>
+    <color name="tk_card_orange">#ff4e00</color>
+    <color name="tk_card_rank">#949494</color>
+
+    <color name="live_selected">#82c210</color>
+    <color name="qiyi_green_mysetting">#7bbc00</color>
+    <color name="qiyi_dark_grey">#3a3a3a</color>
+    <color name="all_color">#85c20f</color>
+
+    <color name="category_cell_bg">#e9e9e9</color>
+
+    <color name="presetkeys_text_color">#464646</color>
+    <color name="presetkeys_text_color_selected">#85c20f</color>
+    <color name="run_man_pk_left_ring">#a8d456</color>
+    <color name="run_man_pk_right_ring">#ff9a6b</color>
+    <color name="run_man_pk_top_hot_text">#666666</color>
+    <color name="run_man_pk_top_left_count_text">#7cbf00</color>
+    <color name="run_man_pk_top_right_count_text">#ff6e2c</color>
+    <color name="run_man_pk_running_star_name">#666666</color>
+    <color name="run_man_pk_top_line">#cccccc</color>
+    <color name="run_man_pk_vs_text">#949494</color>
+    <color name="run_man_pk_total_text">#949494</color>
+    <color name="run_man_pk_vote_text">#ffffff</color>
+    <color name="run_man_pk_footer_line">#cccccc</color>
+    <color name="run_man_rank_name_text">#333333</color>
+    <color name="run_man_rank_count_text">#949494</color>
+    <color name="run_man_rank_fans_text">#949494</color>
+    <color name="run_man_rank_white_text">#ffffff</color>
+    <color name="run_man_rank_footer_line">#e5e5e5</color>
+    <color name="run_man_rank_position_text">#ffffff</color>
+    <color name="run_man_rank_header_bg">#f9f9f9</color>
+    <color name="run_man_rank_header_text">#999999</color>
+
+
+    <color name="top_tab_devide_line_color">#cccccc</color>
+    <color name="qiyi_green">#6fa703</color>
+    <color name="qiyi_grey">#9B9B9B</color>
+
+
+    <!-- 泛绿 -->
+    <color name="ugc_green_like_color">#85c210</color>
+    <!-- 桔色 -->
+    <color name="ugc_orange_like_color">#ff823e</color>
+    <!-- 深黑 -->
+    <color name="ugc_deep_black_color">#464646</color>
+    <!-- 全白 -->
+    <color name="ugc_white_color">#ffffff</color>
+    <!-- 浅灰 -->
+    <color name="ugc_gray_like_color">#e3e3e3</color>
+    <!-- 棕黑 -->
+    <color name="inc_black4d_color">#4d4d4d</color>
+
+    <!-- 新版频道 -->
+    <color name="phone_category_text_color">#464646</color>
+    <color name="phone_category_top_text_color_normal">#8e8e8e</color>
+    <color name="phone_category_top_text_color_selected">#85c20f</color>
+
+    <!-- In Client -->
+    <color name="phone_top_txt_select_bg">#85c210</color>
+    <color name="color_white">#FFFFFF</color>
+    <color name="phone_my_feedback_textview_lee">#777777</color>
+
+    <color name="phone_setting_background_layout_land">#343030</color>
+    <color name="player_land_item_background">#5a920b</color>
+    <color name="player_land_item_title">#9c9c9c</color>
+
+    <!-- 今日焦点 分割线 -->
+    <color name="card_model_line_color">#e7e7e7</color>
+
+    <!-- pps首页列表 -->
+    <color name="pps_channel_title">#464646</color>
+    <color name="pps_channel_des">#949494</color>
+    <color name="pps_divider">#e2e2e2</color>
+
+
+    <color name="top_history_music_bg_unselected">#5000</color>
+    <color name="top_history_music_bg_selected">#A000</color>
+
+    <!-- default -->
+    <color name="default_gary">#949494</color>
+    <color name="default_black">#464646</color>
+    <color name="default_grean">#85C210</color>
+    <color name="divide_line_color">#e6e6e6</color>
+
+
+    <color name="default_button_gray_normal">#ededed</color>
+    <color name="default_button_gray_pressed">#ededed</color>
+    <color name="color_meta_title">#333333</color>
+    <color name="color_meta_sub_title">#666666</color>
+    <color name="color_default_orange_normal">#fc4f1e</color>
+    <color name="color_default_orange_pressed">#fc4f1e</color>
+
+    <!--GameCenter resource start-->
+    <color name="game_center_tab_green">#0bbe06</color>
+    <!--GameCenter resource end-->
+
+    <!-- 淘号 -->
+    <color name="coloe_tao_hao_background">#2e2e2e</color>
+    <color name="coloe_tao_hao_text_gray">#bebebe</color>
+
+    <color name="fontcolor_btn_download">#0bbe06</color>
+    <color name="fontcolor_orange_middle">#ff6000</color>
+    <color name="fontcolor_orange_middle2">#ff8100</color>
+    <color name="fontcolor_orange_trans">#30ff6000</color>
+
+    <color name="bg_btn_download_halftransparent">#2e000000</color>
+    <!--40%透明黑-->
+    <color name="black_alpha_40">#66000000</color>
+    <!--v1.7.0添加-->
+    <color name="me_info_bg">#6ccd04</color>
+    <color name="title_bg">#ffffff</color>
+    <color name="title_bg2">#000000</color>
+
 </resources>

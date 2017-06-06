@@ -20,3 +20,9 @@ export const RankingType = {
     UP: '3',
     NEW: '4'
 }
+export const CardViewType = {
+    TYPE_01: 1,
+    TYPE_02: 2,
+    TYPE_03: 3,
+    TYPE_04: 4,
+}

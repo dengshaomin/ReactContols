@@ -121,6 +121,12 @@ export class SwRefreshListView extends ListView {
 
   }
 
+  static defaultProps = {
+    pusuToLoadMoreTitle: '上拉加载更多~~~~',
+    loadingTitle: '加载中~~~',
+    noMoreDataTitle: '已经加载到底啦（￣︶￣)~~',
+    isShowLoadMore: true
+  }
 
   /**
    * 直接将状态置为没有更多数据状态 通常用于第一次刷新加载的后数据已全部加载 不必下拉刷新
@@ -166,14 +172,6 @@ export class SwRefreshListView extends ListView {
     })
   }
   //----------------------------------------------
-
-  static defaultProps = {
-    pusuToLoadMoreTitle: '上拉加载更多~~~~',
-    loadingTitle: '加载中~~~',
-    noMoreDataTitle: '已经加载到底啦（￣︶￣)~~',
-    isShowLoadMore: true
-  }
-
 
   render() {
     return (

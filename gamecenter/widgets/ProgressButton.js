@@ -24,7 +24,7 @@ export default class ProgressButton extends Component {
         }
         return (
             <CommonTouchableComp onPress={() => { this.props.onPress(this.props.index) }}>
-                <Text style={[this.props.style, styles.progressButton]}>{this._getButtonStr()}</Text>
+                <Text style={[this.props.style, data.game_type == types.GameType.READY ? styles.progressButtonBook: styles.progressButton]}>{this._getButtonStr()}</Text>
             </CommonTouchableComp>
         );
     }

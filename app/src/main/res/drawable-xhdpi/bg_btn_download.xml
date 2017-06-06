@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- 设置进度条颜色图像资源 -->
+    <item android:id="@android:id/background">
+        <shape>
+            <corners android:radius="25dip" />
+
+            <solid android:color="@color/bg_btn_download_halftransparent" />
+
+            <gradient
+                android:angle="270"
+                android:centerColor="#ffffff"
+                android:centerY="0.75"
+                android:endColor="#ffffff"
+                android:startColor="#ffffff" />
+            <stroke
+                android:width="0.5dp"
+                android:color="#0bbe06" />
+        </shape>
+
+    </item>
+
+
+</layer-list>

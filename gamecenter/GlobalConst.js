@@ -6,7 +6,7 @@ export const COMMON_SELECT_COLOR = 'rgba(255, 80, 0, 0.1)'; // 统一按下颜�
 export const TITLE_BAR_HEIGHT = 55; // 自定义标题栏高度
 export const COMMON_BACKGROUND_COLOR = '#F5FCFF'; // 统一背景颜色
 
-export const APP_VERSION = 'V1.0'; 
+export const APP_VERSION = '1.9.0'; 
 export const PAGE_SIZE = 10;
 
 export const props1 = "props1";

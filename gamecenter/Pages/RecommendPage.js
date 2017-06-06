@@ -23,6 +23,7 @@ import * as Routes from './Routes.js'
 export default class RecommendComponent extends Component {
     constructor(props, context) {
         super(props, context);
+        this.state = { isLocked: false }
     }
 
 
@@ -33,17 +34,20 @@ export default class RecommendComponent extends Component {
                 <ScrollableTabView renderTabBar={() => <DefaultTabBar />} tabBarActiveTextColor={colors.green} tabBarInactiveTextColor={colors.font1}
                     tabBarUnderlineStyle={{ backgroundColor: colors.green, height: 1 }}
                     scrollWithoutAnimation={false}
+                    locked={false}
                     tabBarTextStyle={{ fontSize: fonts.font14, paddingTop: 20 }}
                     style={{ marginTop: -10 }}
-                >
-                    <ChoicePage tabLabel='精选' navigator={this.props.navigator} />
+                    >
+                    <ChoicePage tabLabel='精选' hasTouch={this._hasTouch.bind(this)} navigator={this.props.navigator} />
                     <NewGamePage tabLabel='新游' navigator={this.props.navigator} />
                     <CategoryPage tabLabel='分类' navigator={this.props.navigator} />
                     <RankingPage tabLabel='排行' navigator={this.props.navigator} />
-
                 </ScrollableTabView>
             </View >
         );
     }
-
+    _hasTouch = (isTouch) => {
+        console.log(isTouch)
+        this.setState({isLocked: isTouch})
+    }
 }

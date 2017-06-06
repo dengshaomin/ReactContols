@@ -1,4 +1,4 @@
-import React, { Component,PureComponent } from 'react';
+import React, { Component, PureComponent } from 'react';
 import {
   StyleSheet,
   ListView,
@@ -74,6 +74,7 @@ export default class RefreshListViewComponent extends PureComponent {
           onEndReachedThreshold={30}
           pageSize={10}
           initialListSize={5}
+          showsVerticalScrollIndicator={false}
           // scrollRenderAheadDistance={500}
           removeClippedSubviews={true}
           onEndReached={this.isLoadMore ? this._onLoadMore.bind(this) : null}

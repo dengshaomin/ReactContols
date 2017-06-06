@@ -1,3 +1,321 @@
-<resources>
-    <string name="app_name">ReactControls</string>
+<?xml version='1.0' encoding='utf-8'?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">appStore</string>
+    <string name="launcher_name">@string/app_name</string>
+    <string name="activity_name">@string/launcher_name</string>
+    <string name="ppsgame_common_loading">内容即将呈现&#8230;</string>
+    <string name="ppsgame_common_loading2">正在加载&#8230;</string>
+    <string name="ppsgame_common_empty">什么都没有!</string>
+    <string name="ppsgame_common_error">数据加载失败！</string>
+    <string name="ppsgame_name">游戏名称</string>
+    <string name="ppsgame_version">版本:&#160;%s</string>
+    <string name="ppsgame_size">大小:&#160;</string>
+    <string name="ppsgame_operator">开发者:&#160;%s</string>
+    <string name="ppsgame_platform">系统:&#160;</string>
+    <string name="ppsgame_platform_new">兼容性:&#160;%s</string>
+    <string name="ppsgame_downloadNum">下载量:&#160;</string>
+    <string name="ppsgame_m_downloadNum">%s次下载</string>
+    <string name="ppsgame_publishDate">更新:&#160;%s</string>
+    <string name="ppsgame_age">年龄:&#160;</string>
+    <string name="ppsgame_times">次</string>
+    <string name="ppsgame_desc">简介:&#160;</string>
+    <string name="ppsgame_screenshot">游戏截图</string>
+    <string name="ppsgame_center">游戏中心</string>
+    <string name="ppsgame_download_center">下载管理</string>
+    <string name="ppsgame_download_install">一键下载安装</string>
+    <string name="ppsgame_click_install">点击安装</string>
+    <string name="ppsgame_status_undownload">下载</string>
+    <string name="ppsgame_status_youjiang_undownload">有奖下载</string>
+    <string name="ppsgame_status_installing">安装中...</string>
+    <string name="ppsgame_status_installwait">等待安装</string>
+    <string name="ppsgame_status_stop">暂停</string>
+    <string name="ppsgame_status_wait">等待</string>
+    <string name="ppsgame_status_install">安装</string>
+    <string name="ppsgame_status_open">打开</string>
+    <string name="ppsgame_status_update">升级</string>
+    <string name="ppsgame_status_downloading">下载中</string>
+    <string name="ppsgame_tab_downloading">下载中&#160;(${num})</string>
+    <string name="ppsgame_tab_downloaded">已下载&#160;(${num})</string>
+    <string name="ppsgame_class_role">角色扮演</string>
+    <string name="ppsgame_class_war">战争策略</string>
+    <string name="ppsgame_class_leisure">休闲竞技</string>
+    <string name="ppsgame_center_home">精品</string>
+    <string name="ppsgame_center_category">分类</string>
+    <string name="ppsgame_center_ranking">排行</string>
+    <string name="ppsgame_center_online">网游</string>
+    <string name="ppsgame_center_single">单机</string>
+    <string name="ppsgame_center_packs">礼包</string>
+    <string name="ppsgame_event">活动</string>
+    <string name="ppsgame_event_title">活动</string>
+    <string name="ppsgame_event_ing">正在进行</string>
+    <string name="ppsgame_packs">礼包</string>
+    <string name="ppsgame_packs_list">领礼包</string>
+    <string name="ppsgame_packs_detail">礼包详情</string>
+    <string name="ppsgame_pack_tips">你可以在"礼包中心-已领礼包",查看你所领取的礼包</string>
+    <string name="ppsgame_game_detail">游戏详情</string>
+    <string name="ppsgame_packs_save">存号箱</string>
+    <string name="ppsgame_packs_get">领取</string>
+    <string name="ppsgame_packs_geted">已领取</string>
+    <string name="is_geted_pack">已领完</string>
+    <string name="ad_before_video_download_name">您的游戏/应用</string>
+
+    <string name="ppsgame_iwant_rating">我要评分</string>
+    <string name="ppsgame_edit">编辑</string>
+    <string name="ppsgame_cancle">取消</string>
+    <string name="ppsgame_close">关闭</string>
+    <string name="ppsgame_edit_select">全选</string>
+    <string name="ppsgame_edit_invert">反选</string>
+    <string name="ppsgame_edit_delete">删除</string>
+    <string name="ppsgame_edit_clean">清空</string>
+    <string name="ppsgame_edit_retain">保留</string>
+    <string name="ppsgame_copy">复制</string>
+    <string name="ppsgame_copy_start">复制并启动</string>
+    <string name="ppsgame_ad_download">立即下载</string>
+    <string name="ppsgame_info_recommend">推荐游戏</string>
+    <string name="ppsgame_mark_recommend">推荐</string>
+    <string name="ppsgame_search_edit_hint">请输入要搜索的游戏名</string>
+    <string name="ppsgame_search_btn">搜索</string>
+    <string name="ppsgame_search_recommend_title">大家都在搜</string>
+    <string name="ppsgame_retry">重试</string>
+    <string name="ppsgame_ok">确定</string>
+    <string name="ppsgame_prompt">提示</string>
+    <string name="ppsgame_pack_tip">领取成功</string>
+    <string name="ppsgame_pack_tips_content">礼包已经保存至“存号箱".\n礼包请尽快使用，过期即会失效;\n</string>
+    <string name="ppsgame_prompt_content">确定要删除所选的游戏吗？</string>
+    <string name="ppsgame_prompt_clean">确定要清空吗?</string>
+    <string name="ppsgame_undo_empty_tips">快去下载好玩的应用吧~</string>
+    <string name="ppsgame_done_empty_tips">还没有应用哦，快去下载吧~</string>
+    <string name="ppsgame_broadcast_network_mobile">在使用2g/3g/4g网络，如有游戏下载已暂停！</string>
+    <string name="ppsgame_broadcast_network_error">网络连接不可用请检查网络！</string>
+    <string name="ppsgame_loading_data_fail">亲，网络不给力哦\n请检查网络连接后刷新...</string>
+    <string name="ppsgame_pull_to_refresh_pull_label">下拉可以刷新</string>
+    <string name="ppsgame_pull_to_refresh_release_label">松开即可刷新</string>
+    <string name="ppsgame_pull_to_refresh_refreshing_label">正在刷新数据...</string>
+    <string name="ppsgame_exit"> 退出</string>
+    <string name="ppsgame_enter_gamecenter">进入游戏中心</string>
+    <string name="ppsgame_pack_detail">礼包详情</string>
+    <string name="game_to_get_pack">快去领取礼包吧!</string>
+    <string name="ppsgame_soushuyouxi">所属游戏</string>
+    <string name="ppsgame_status_continue">继续</string>
+    <string name="ppsgame_shoufa">首发</string>
+    <string name="ppsgame_biwan"> 必玩</string>
+    <string name="ppsgame_new"> 最新</string>
+    <string name="ppsgame_detail">游戏详情</string>
+    <string name="ppsgame_all_age">所有年龄段</string>
+    <string name="ppsgame_pack_useinfo">使用方法</string>
+    <string name="ppsgame_pack_usescope">使用范围</string>
+    <string name="ppsgame_pack_expiry_date">有效期限</string>
+    <string name="ppsgame_search_empty">暂无搜索结果</string>
+
+
+    <string name="phone_loading_data_fail">未获取到内容\n请点击页面重试</string>
+    <string name="phone_loading_data_not_network">网络未连接\n请稍后点击页面重试</string>
+    <string name="phone_loading_data_weak_network">网络不给力\n请点击页面重试</string>
+    <string name="phone_loading_data_waiting">内容即将呈现&#8230;</string>
+    <string name="ppsgame_details_progress_tv">0%</string>
+
+    <string name="game_detail">游戏详情</string>
+    <string name="bottom_navigation_recommend">推荐</string>
+    <!--
+    <string name="bottom_navigation_software">软件</string>
+    <string name="bottom_navigation_game">游戏</string>
+    -->
+    <string name="ppsgame_item_extend">[推广]</string>
+
+    <string name="bottom_navigation_ranking">排行</string>
+    <string name="bottom_navigation_category">分类</string>
+    <!-- add for v1.9 start -->
+    <string name="bottom_navigation_manage">管理</string>
+
+    <string name="software_update_all">你有2款应用需要更新，\n是否全部更新？</string>
+    <string name="software_root_device">您的手机支持一键安装功能，\n是否立即开启该功能？</string>
+    <string name="software_root_device_open">立即开启</string>
+
+    <string name="click_play">点击即玩</string>
+
+    <string name="update_manage">升级管理</string>
+    <string name="download_manage">下载管理</string>
+    <string name="uninstall_manage">卸载管理</string>
+    <string name="app_version_manage">应用商店 V</string>
+    <string name="update_all_app">全部升级&#160;&#160;&#160;%1$s（共节省%2$s）</string>
+
+    <string name="volume_total_size">手机总内存</string>
+    <string name="volume_use_size">已用</string>
+    <string name="volume_left_size">剩余</string>
+    <string name="download_item_action_uninstall">卸载</string>
+    <string name="app_bottom_batch_uninstall">批量卸载</string>
+
+    <string name="acc_service_enable_dialog_msg">在设置中开启【爱奇艺自动装】，无需获取ROOT权限，即可自动安装。</string>
+    <string name="toast_baidu_weishi_downing">百度手机卫士已在下载队列</string>
+    <string name="toast_baidu_weishi_has_installed">您已安装百度手机卫士，无需重复下载。</string>
+    <!-- add for v1.9 end -->
+
+    <string name="detail_dev_other_app">该开发者其它应用</string>
+    <string name="detail_dev_other_game">该开发者其它游戏</string>
+    <string name="detail_app_chg">换一批</string>
+    <string name="category_app">软件分类</string>
+    <string name="category_game">游戏分类</string>
+
+    <string name="ppsgame_edit_unselect">取消全选</string>
+    <string name="omit_upgrade">忽略升级</string>
+    <string name="omit_upgrade_title">已忽略的升级</string>
+
+    <!--game center bottom navigation text-->
+    <string name="game_center_bottom_navigation_recommend">推荐</string>
+    <string name="game_center_bottom_navigation_welfare">福利</string>
+    <string name="game_center_bottom_navigation_poker">棋牌</string>
+    <string name="game_center_bottom_navigation_game_network">游戏圈</string>
+    <string name="game_center_bottom_navigation_me">我的</string>
+    <string name="game_center_category_game_num">共有<xliff:g id="num">%1d</xliff:g>款游戏</string>
+
+    <string name="game_center_me_login">登录</string>
+    <string name="game_center_me_no_login">未登录</string>
+    <string name="game_center_me_sign_out">退出登录</string>
+    <string name="game_center_me_gift">我的礼包</string>
+    <string name="game_center_me_voucher">我的背包</string>
+    <string name="game_center_me_msg">我的消息</string>
+    <string name="game_center_me_updateapp">更新管理</string>
+    <string name="game_center_me_waiting_install_app">待安装游戏</string>
+    <string name="game_center_me_game">我的游戏</string>
+    <string name="game_center_me_recommend">强力推荐</string>
+    <string name="game_center_me_more_game">更多游戏 ></string>
+    <string name="game_center_me_contact_customer_service">联系客服</string>
+    <string name="game_center_me_customer_service">客服</string>
+    <string name="game_center_me_msg_blank_tip_text">您现在还没有新的消息哦</string>
+    <string name="game_center_me_voucher_blank_tip_text1">背包中暂无代金券</string>
+    <string name="game_center_me_voucher_blank_tip_text2">背包中暂无奖品</string>
+    <string name="game_center_me_voucher_blank_tip_text3">背包中暂无商品</string>
+    <string name="game_center_me_voucher_title">我的背包</string>
+    <string name="game_center_me_voucher_tab_text1">代金券</string>
+    <string name="game_center_me_voucher_tab_text2">虚拟卡</string>
+    <string name="game_center_me_gift_blank_tip_text">你没有领取任何礼包哦</string>
+    <string name="game_center_me_gift_blank_tip_btn_text">去领取礼包</string>
+    <string name="game_center_me_no_game"> 还没有游戏哦，快去下载好玩的游戏</string>
+    <string name="game_center_me_game_month">月</string>
+    <string name="game_center_me_game_download">次下载</string>
+    <string name="game_center_me_game_played">人玩过</string>
+    <string name="game_center_me_msg_allread">全部已读</string>
+    <string name="game_center_me_msg_cancel">取消</string>
+    <string name="game_center_me_msg_ok">确定</string>
+    <string name="game_center_me_msg_deltail">消息详情</string>
+    <string name="game_center_me_msg_mark_all_msg_read">确定要把全部消息标记为已读？</string>
+    <string name="game_center_me_msg_delete_all_msg">确定要删除选定消息？</string>
+    <string name="game_center_me_use_method">使用方法</string>
+    <string name="game_center_me_lancher">启动</string>
+    <string name="game_center_me_gift_activation_num">激活码：</string>
+    <string name="game_center_me_gift_copy_lancher">复制并启动</string>
+    <string name="game_center_me_loading_deleteing">删除中</string>
+    <string name="game_center_me_loading_delete_success">删除成功</string>
+    <string name="game_center_me_loading_delete_fail">删除失败</string>
+    <string name="game_center_me_loading_marking">标记为已读中</string>
+    <string name="game_center_me_loading_mark_success">标记成功</string>
+    <string name="game_center_me_loading_marking_fail">标记失败</string>
+    <string name="game_center_me_gift_num_copy_successful">礼包码已成功复制请享用</string>
+    <string name="game_center_me_gift_num_copy_fail">复制礼包码失败，请重试</string>
+    <string name="game_center_me_app_not_install">你还未安装此游戏，请先下载后在使用</string>
+    <string name="game_center_group_info">资讯</string>
+    <string name="game_center_group_video">视频</string>
+    <string name="game_center_group_topic">专题</string>
+
+    <string name="game_center_group_news">新闻</string>
+    <string name="game_center_group_tips">攻略</string>
+    <string name="game_center_group_event">活动</string>
+    <string name="game_center_group_other">其他</string>
+    <string name="game_center_group_main_info">综合资讯</string>
+    <string name="game_center_group_focus_video">聚焦视频</string>
+    <string name="game_center_group_check_more">查看更多</string>
+
+    <!-- CardView   -->
+    <string name="card_more_news">更多资讯</string>
+    <string name="card_change_other">换一批</string>
+    <string name="card_download">下载</string>
+    <string name="ppsgame_h5_game">点击即玩</string>
+    <string name="game_center_gift">礼包</string>
+
+    <!--GameCenter start-->
+    <string name="ready_game_btn_text">敬请期待</string>
+    <!--GameCenter end-->
+
+    <!-- 游戏中心搜索界面 -->
+    <string name="game_center_search_cancle">取消</string>
+    <string name="game_center_search_search">全网影视</string>
+    <string name="game_center_search_record">搜索历史</string>
+    <string name="game_center_search_clear">清空记录</string>
+    <string name="game_center_search_hot">热门搜索</string>
+    <string name="game_center_search_download">下载</string>
+    <string name="game_center_search_download_count">次下载</string>
+
+    <!-- 淘号 -->
+    <string name="game_center_tao_hao_tao">淘号</string>
+    <string name="game_center_tao_hao_tao_inf">淘号信息</string>
+    <string name="game_center_tao_hao_tao_key">激活码:</string>
+    <string name="game_center_tao_hao_getting">正在获取...</string>
+    <string name="game_center_tao_hao_tao_usage">使用方法</string>
+    <string name="game_center_tao_hao_tao_hint">温馨提示:本礼包为淘号礼包,可能会被其他用户抢先获得,请尽快使用</string>
+    <string name="game_center_tao_hao_tao_copy">复制并启动</string>
+
+    <string name="game_center_ranking_fragment_high_quality">精品榜</string>
+    <string name="game_center_ranking_fragment_web_game">热搜榜</string>
+    <string name="game_center_ranking_fragment_single_game">飙升榜</string>
+    <string name="game_center_ranking_fragment_new_game">新游榜</string>
+
+    <!--  v1.2.3  -->
+    <string name="get_gift_success_title">恭喜领取成功</string>
+    <string name="get_gift_failed_title">哎呀, 抱歉啦~</string>
+    <string name="get_gift_failed_detail">人气太旺, 礼包瞬间被抢光了~</string>
+    <string name="get_gift_success_message">去 [我的礼包] 券查看</string>
+    <string name="get_gift_failed_message">知道了</string>
+
+    <!--  v1.3  -->
+    <string name="reservation_title">温馨提示</string>
+    <string name="reservation_desc">预约成功，游戏上线是否帮您自动下载？</string>
+    <string name="reservation_select">游戏上线时自动帮我下载安装包</string>
+    <string name="ready_btn_text_selected">已预约</string>
+    <string name="ready_btn_text">预约</string>
+    <string name="reservationToast">预约游戏已上线，请在下载管理中查看</string>
+    <string name="store_gold_desc">金币:&#160;&#160;</string>
+    <string name="virtual_confirm_warning_words">确认用金币兑换以下商品吗?</string>
+    <string name="rece_addr">收货地址</string>
+    <string name="new_addr">新增地址</string>
+    <string name="edit_addr">编辑地址</string>
+    <string name="todo_install_x_game">您还有%1$d款游戏没安装哦!</string>
+
+    <!-- v1.4 -->
+    <string name="gift_center">礼包中心</string>
+    <string name="coin_center">金币商城</string>
+    <string name="coin_luck_draw">金币抽奖</string>
+    <string name="wouderful_ac">精彩活动</string>
+    <string name="last_package">最新礼包</string>
+    <string name="hot_package">热门礼包</string>
+    <string name="download_with_gift">已经开始下载啦,登录后可领取奖励哦!</string>
+    <string name="get_gift_failed_message__3">当前礼包不存在</string>
+    <string name="get_gift_failed_message__2">请求超时,请稍后重试~</string>
+    <string name="get_gift_failed_message_0">领取失败,请稍后重试~</string>
+    <string name="get_gift_failed_message__4">礼包已领完,下次再来吧~</string>
+    <string name="get_gift_success_message_2">你已经领过该礼包啦！</string>
+    <string name="get_gift_failed_message_bind">已经开始下载啦,绑定手机号后可领取奖励哦!</string>
+    <string name="gift_to_bind_phone">去绑定</string>
+    <string name="check_more_gift">查看更多福利</string>
+    <string name="check_cancel_reservation">取消后您将收不到游戏上线提醒哦~</string>
+    <string name="check_now">马上查看</string>
+    <string name="download_now">马上下载</string>
+    <string name="reservation_pre">您预约的游戏</string>
+    <string name="reservation_after">上线啦!</string>
+    <string name="reservation_successful">游戏上线后自动为您下载</string>
+    <string name="reservation_fail">预约失效，请稍后重试～</string>
+    <string name="reservation_cancel">已取消预约!</string>
+    <string name="reservation_cancel_fail">取消预约失败，请稍后重试～</string>
+    <string name="HOME_MSG_TAG_1">HOME_MSG_TAG_1</string>
+    <string name="HOME_MSG_TAG_2">HOME_MSG_TAG_1</string>
+
+    <string name="no_download_game_text">您暂无游戏可玩哦，试试我们的推荐吧</string>
+
+    <string name="falcon_downloading">为了极致游戏体验\n正在玩命帮您下载加速包哦~</string>
+    <string name="falcon_installing">下载完成，正在启动加速包</string>
+    <string name="falcon_enter">进入游戏中</string>
+
+    <!--1.7-->
+
+    <string name="up_level">我要升级</string>
+
 </resources>

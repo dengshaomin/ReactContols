@@ -42,6 +42,10 @@ export default StyleSheet.create({
         resizeMode: Image.resizeMode.contain,
         width: 20, height: 20
     },
+    minimumIcon: {
+        resizeMode: Image.resizeMode.contain,
+        width: 12, height: 12,
+    },
     buttonIcon: {
         resizeMode: Image.resizeMode.contain,
         width: 30, height: 30
@@ -51,7 +55,7 @@ export default StyleSheet.create({
         width: 60, height: 60,
         // borderColor: colors.white,
         // borderWidth: 0.5,
-        // borderRadius: 15,
+        borderRadius: 15,
     },
     logoIcon: {
         resizeMode: Image.resizeMode.contain,
@@ -84,7 +88,18 @@ export default StyleSheet.create({
         borderColor: colors.green,
         borderRadius: 25,
         borderWidth: 0.5,
-        height: 30, width: 70,
+        height: 25, width: 60,
+        fontSize: fonts.font12,
+        textAlign: 'center',
+        justifyContent: 'center',
+        textAlignVertical: 'center',
+    },
+    progressButtonBook: {
+        color: colors.orange,
+        borderColor: colors.orange,
+        borderRadius: 25,
+        borderWidth: 0.5,
+        height: 25, width: 60,
         fontSize: fonts.font12,
         textAlign: 'center',
         justifyContent: 'center',
@@ -97,6 +112,8 @@ export default StyleSheet.create({
     show: {
         position: 'relative',
         left: 0
+    },
+    cardRootView: {
+        backgroundColor: colors.white,
     }
-
 });
