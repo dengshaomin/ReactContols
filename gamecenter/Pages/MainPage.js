@@ -18,6 +18,7 @@ import { connect } from 'react-redux';
 import colors from '../values/colors';
 import MineComponent from './MinePage'
 import RecommendComponent from './RecommendPage.js'
+import GiftComponent from './GfitPage.js'
 import WeixinTabBar from '../widgets/WeixinTabBar.js'
 import * as Routes from './Routes.js'
 class MainPage extends React.Component {
@@ -35,12 +36,12 @@ class MainPage extends React.Component {
                         titleStyle={styles.tabText}
                         selectedTitleStyle={styles.selectedTabText}
                         renderIcon={() => <Image style={styles.tabIcon} source={{ uri: 'icon_recommend' }}
-                            />}
+                        />}
                         renderSelectedIcon={() => <Image style={styles.tabIcon} source={{ uri: 'icon_recommend_p' }}
-                            />}
+                        />}
                         onPress={this.switchTab.bind(this, TYPES.HOME_TABS.RECOMMEND)}>
-                        <RecommendComponent navigator={this.props.navigator}/>
-                        {/*Routes.navigator('recommend') 用这个跳转子页面的时候底部导航栏不消失*/} 
+                        <RecommendComponent navigator={this.props.navigator} />
+                        {/*Routes.navigator('recommend') 用这个跳转子页面的时候底部导航栏不消失*/}
                     </TabNavigator.Item>
 
                     <TabNavigator.Item
@@ -49,13 +50,11 @@ class MainPage extends React.Component {
                         titleStyle={styles.tabText}
                         selectedTitleStyle={styles.selectedTabText}
                         renderIcon={() => <Image style={styles.tabIcon} source={{ uri: 'icon_gift' }}
-                            />}
+                        />}
                         renderSelectedIcon={() => <Image style={styles.tabIcon} source={{ uri: 'icon_gift_p' }}
-                            />}
+                        />}
                         onPress={this.switchTab.bind(this, TYPES.HOME_TABS.GIFT)}>
-                        <View style={{ flex: 1, justifyContent: 'center' }}>
-                            <Text style={{ fontSize: 20 }}>我是第2个选项卡，直接书写出的视图!</Text>
-                        </View>
+                        <GiftComponent navigator={this.props.navigator}/>
                     </TabNavigator.Item>
                     <TabNavigator.Item
                         selected={this.props.selectedTab == TYPES.HOME_TABS.MINE}
@@ -63,11 +62,11 @@ class MainPage extends React.Component {
                         titleStyle={styles.tabText}
                         selectedTitleStyle={styles.selectedTabText}
                         renderIcon={() => <Image style={styles.tabIcon} source={{ uri: 'icon_mine' }}
-                            />}
+                        />}
                         renderSelectedIcon={() => <Image style={styles.tabIcon} source={{ uri: 'icon_mine_p' }}
-                            />}
+                        />}
                         onPress={this.switchTab.bind(this, TYPES.HOME_TABS.MINE)}>
-                        <MineComponent navigator={this.props.navigator}/>
+                        <MineComponent navigator={this.props.navigator} />
                     </TabNavigator.Item>
                 </TabNavigator>
             </View>

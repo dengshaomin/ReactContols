@@ -26,7 +26,7 @@ export default class CategoryItem extends Component {
             data = this.props.data;
         }
         return (
-            <View >
+            <View>
 
                 <ToolbarAndroid
                     toolbarActions={this.props.toolbarActions}
@@ -34,12 +34,11 @@ export default class CategoryItem extends Component {
                     style={styles.toolBar}
                     onIconClicked={this.backClick.bind(this)}
                 >
-
                 </ToolbarAndroid>
                 <Text style={{ backgroundColor: colors.translate, width: Screen.getScreenWidth(), textAlign: 'center', fontSize: 18, color: colors.font1, position: 'absolute', top: 15 }}>
                     {this.props.titleCenter}
                 </Text>
-
+                <View style={styles.diverLine} />
             </View >
         );
     }

@@ -53,14 +53,15 @@ export default class ChoiceComponent extends Component {
             <View style={{ flex: 1, backgroundColor: colors.backGround }}>
                 <RefreshListViewComponent dataSource={this.state.dataSource} loadingStatu={this.state.loadingStatu} renderRow={this._renderItem.bind(this)}
                     onRefresh={this._onRefresh.bind(this)} onLoadMore={this._onLoadMore.bind(this)}
+                    isLoadMore={false}
                     renderHeader={this._renderHeader.bind(this)} />
             </View>
         );
     }
 
     _onLoadMore(pageIndex) {
-        this.currentPage = pageIndex;
-        this._request();
+        // this.currentPage = pageIndex;
+        // this._request();
     }
     _onRefresh(pageIndex) {
         this.currentPage = pageIndex;
@@ -104,9 +105,6 @@ export default class ChoiceComponent extends Component {
         )
     }
     _renderItem(data, rowID) {
-        if (rowID == 7) {
-            console.log(data)
-        }
         return (CardViewFactoty.createView(data))
     }
     _renderLeftAndRight(datal, datar) {

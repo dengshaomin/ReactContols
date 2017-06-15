@@ -55,7 +55,7 @@ export default StyleSheet.create({
         width: 60, height: 60,
         // borderColor: colors.white,
         // borderWidth: 0.5,
-        borderRadius: 15,
+        borderRadius: 5,
     },
     logoIcon: {
         resizeMode: Image.resizeMode.contain,

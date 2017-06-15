@@ -27,7 +27,7 @@ export const RefreshTitle = {
   releaseToRefresh: '松开以刷新',
   refreshing: '正在刷新数据'
 }
-import dateFormat from '../tools/common.js'
+import * as dateFormat from '../tools/common.js'
 /**
  * 下拉刷新状态//0 下拉以刷新 1 松开以刷新 2 刷新中
  * @type {{pullToRefresh: number, releaseToRefresh: number, refreshing: number}}
@@ -292,7 +292,7 @@ export class SwRefreshListView extends ListView {
     this.setState({
       refresStatus: RefreshStatus.pullToRefresh,
       refreshTitle: RefreshTitle.pullToRefresh,
-      date: dateFormat(now, 'yyyy-MM-dd hh:mm')
+      date: dateFormat.dateFormat(now, 'yyyy-MM-dd hh:mm')
     })
   }
 

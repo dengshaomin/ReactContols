@@ -4,7 +4,7 @@
  * @param fmt
  * @returns {*|string}
  */
-export default dateFormat = function(dateTime, fmt) {
+export function dateFormat(dateTime, fmt) {
   var date = new Date(dateTime);
   fmt = fmt || 'yyyy-MM-dd';
   var o = {
@@ -20,4 +20,8 @@ export default dateFormat = function(dateTime, fmt) {
   for (var k in o)
     if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
   return fmt;
+}
+
+export function strToJsDate(str) {
+  return new Date(Date.parse(str.replace(/-/g, "/")))
 }

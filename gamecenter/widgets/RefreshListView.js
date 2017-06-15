@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { Component, PureComponent, PropTypes } from 'react';
 import {
   StyleSheet,
   ListView,
@@ -16,6 +16,12 @@ import LongGameItem from '../widgets/LongGameItem.js'
 import AndroidImage from '../widgets/AndroidImage.js'
 import PureRenderMixin from 'react-addons-pure-render-mixin';
 export default class RefreshListViewComponent extends PureComponent {
+  static PropTypes = {
+    renderSeparator: PropTypes.bool
+  }
+  static defaultPropTypes = {
+    renderSeparator: true
+  }
   constructor(props) {
     super(props);
     this.isLoadMore = true;
@@ -78,7 +84,7 @@ export default class RefreshListViewComponent extends PureComponent {
           // scrollRenderAheadDistance={500}
           removeClippedSubviews={true}
           onEndReached={this.isLoadMore ? this._onLoadMore.bind(this) : null}
-          renderSeparator={(sectionID, rowID) => <View key={`${sectionID}-${rowID}`} style={styles.diverLine} />}
+          renderSeparator={!this.props.renderSeparator ? null : (sectionID, rowID) => <View key={`${sectionID}-${rowID}`} style={styles.diverLine} />}
           renderFooter={this.isLoadMore ? this._footerView.bind(this) : null}
           renderHeader={this.props.renderHeader == null ? null : () => this.props.renderHeader()}
           contentContainerStyle={this.props.contentContainerStyle == null ? null : this.props.contentContainerStyle}
